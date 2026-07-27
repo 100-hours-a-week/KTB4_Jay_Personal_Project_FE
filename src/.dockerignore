@@ -1,0 +1,16 @@
+# Docker 안에서 npm ci를 다시 실행하므로 로컬 의존성 제외
+node_modules
+
+# Docker 안에서 npm run build를 다시 실행하므로 기존 dist 제외
+dist
+
+# Git 관련 파일 제외
+.git
+.gitignore
+
+# IDE 설정 제외
+.idea
+.vscode
+
+# 로그 제외
+*.log
