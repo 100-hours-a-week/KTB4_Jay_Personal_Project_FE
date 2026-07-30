@@ -1,6 +1,6 @@
 import CommentItem from './CommentItem'
 
-function CommentList({ comments = [], onDelete, onUpdate }) {
+function CommentList({ comments = [], currentUserId, onDelete, onUpdate }) {
   if (comments.length === 0) {
     return <div id="comment-list">No thread yet.</div>
   }
@@ -11,6 +11,7 @@ function CommentList({ comments = [], onDelete, onUpdate }) {
         <CommentItem
           key={comment.commentId}
           comment={comment}
+          currentUserId={currentUserId}
           onDelete={onDelete}
           onUpdate={onUpdate}
         />

@@ -9,8 +9,7 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
   const [isRestoring, setIsRestoring] = useState(true)
 
-  const isLoggedIn = currentUser !== null && getAuthTokens().accessToken !== null
-
+  const isLoggedIn = Boolean(currentUser)
   const login = useCallback(async ({ email, password }) => {
     const result = await loginUser({
       email: email.trim(),

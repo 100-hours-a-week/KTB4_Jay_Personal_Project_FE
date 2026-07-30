@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { getPosts, getRankPosts } from '../api/postApi'
+import Pagination from '../components/Pagination'
 import PostCard from '../components/PostCard'
 import { useAuth } from '../context/AuthContext'
 
@@ -20,6 +21,7 @@ function PostListPage({
   const [rankPeriod, setRankPeriod] = useState('WEEKLY')
   const [isHotMenuOpen, setIsHotMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   const loadPosts = useCallback(async (page = 0, nextSortType = 'latest', nextRankPeriod = 'WEEKLY') => {
     setIsLoading(true)
@@ -33,22 +35,17 @@ function PostListPage({
       const data = result?.data ?? {}
       setPosts(data.content ?? [])
       setPageData(data)
-      setCurrentPage(data.number ?? page)
-      navigate('list', { page: data.number ?? page })
     } catch (error) {
       showMessage(error.message, 'error')
     } finally {
       setIsLoading(false)
     }
-  }, [navigate, setCurrentPage, showMessage])
+  }, [showMessage])
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     loadPosts(currentPage, sortType, rankPeriod)
-  }, [currentPage, loadPosts, rankPeriod, sortType])
-
-  const current = (pageData?.number ?? currentPage) + 1
-  const total = pageData?.totalPages === 0 ? 1 : (pageData?.totalPages ?? 1)
+  }, [currentPage, loadPosts, rankPeriod, refreshKey, sortType])
 
   return (
     <section id="post-list-section" className="section">
@@ -140,7 +137,7 @@ function PostListPage({
       <button
         id="refresh-posts-button"
         type="button"
-        onClick={() => loadPosts(currentPage, sortType, rankPeriod)}
+        onClick={() => setRefreshKey((prev) => prev + 1)}
       >
         Refresh
       </button>
@@ -162,31 +159,11 @@ function PostListPage({
           ))}
       </div>
 
-      <div className="pagination">
-        <button
-          id="prev-page-button"
-          type="button"
-          disabled={pageData?.first ?? true}
-          onClick={() => {
-            if (currentPage > 0) {
-              loadPosts(currentPage - 1, sortType, rankPeriod)
-            }
-          }}
-        >
-          이전
-        </button>
-        <span id="page-info">
-          {current} / {total}
-        </span>
-        <button
-          id="next-page-button"
-          type="button"
-          disabled={pageData?.last ?? true}
-          onClick={() => loadPosts(currentPage + 1, sortType, rankPeriod)}
-        >
-          다음
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        pageData={pageData}
+        onPageChange={setCurrentPage}
+      />
     </section>
   )
 }

@@ -2,6 +2,14 @@ import { MESSAGE_MAP } from '../constants/messageMap'
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+export class ApiError extends Error {
+  constructor(code, message) {
+    super(message)
+    this.name = 'ApiError'
+    this.code = code
+  }
+}
+
 let authTokens = {
   accessToken: localStorage.getItem('accessToken') || null,
   refreshToken: localStorage.getItem('refreshToken') || null,
@@ -62,14 +70,14 @@ async function apiRequestInternal(path, options = {}, canRetry) {
     return parseApiResponse(response)
   }
 
-  const message = await getErrorMessage(response, options.errorMessage ?? '요청에 실패했습니다.')
+  const code = await getErrorMessage(response, options.errorMessage ?? '요청에 실패했습니다.')
 
-  if (response.status === 401 && message === 'expired_access_token' && canRetry === true) {
+  if (response.status === 401 && code === 'expired_access_token' && canRetry === true) {
     await refreshAccessToken()
     return apiRequestInternal(path, options, false)
   }
 
-  throw new Error(MESSAGE_MAP[message] ?? message)
+  throw new ApiError(code, MESSAGE_MAP[code] ?? code)
 }
 
 async function refreshAccessToken() {

@@ -304,6 +304,7 @@ function PostDetailPage({
         <h3>Thread</h3>
         <CommentList
           comments={comments}
+          currentUserId={userId}
           onDelete={handleDeleteComment}
           onUpdate={handleUpdateComment}
         />

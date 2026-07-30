@@ -97,25 +97,11 @@ function SignupPage({ navigate, showMessage }) {
       showMessage('Join 완료. Login 해주세요.', 'success')
       navigate('login', { keepMessage: true })
     } catch (error) {
-      const message = error.message.toLowerCase()
-      if (
-        error.message.includes('이메일') ||
-        error.message.includes('email') ||
-        error.message.includes('이미 사용 중인 email') ||
-        message.includes('email') ||
-        message.includes('already_exist_email')
-      ) {
+      if (error.code === 'already_exist_email') {
         setTouched((prev) => ({ ...prev, email: true }))
         setServerErrors((prev) => ({ ...prev, email: '* duplicated email.' }))
         showMessage('', '')
-      } else if (
-        error.message.includes('닉네임') ||
-        error.message.includes('handle') ||
-        error.message.includes('이미 사용 중인 handle') ||
-        message.includes('nickname') ||
-        message.includes('handle') ||
-        message.includes('already_exist_nickname')
-      ) {
+      } else if (error.code === 'already_exist_nickname') {
         setTouched((prev) => ({ ...prev, nickname: true }))
         setServerErrors((prev) => ({ ...prev, nickname: '* duplicated handle.' }))
         showMessage('', '')

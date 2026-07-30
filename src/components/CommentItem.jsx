@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { formatDate } from '../utils/format'
 
-function CommentItem({ comment, onDelete, onUpdate }) {
+function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(comment.content ?? '')
+  const isOwner = Number(comment.authorId) === Number(currentUserId)
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -21,7 +22,7 @@ function CommentItem({ comment, onDelete, onUpdate }) {
       </div>
       <p>{comment.content}</p>
 
-      {isEditing ? (
+      {isOwner && isEditing ? (
         <form className="comment-edit-form" onSubmit={handleSubmit}>
           <input
             className="comment-edit-input"
@@ -33,7 +34,7 @@ function CommentItem({ comment, onDelete, onUpdate }) {
             Cancel
           </button>
         </form>
-      ) : (
+      ) : isOwner ? (
         <div className="comment-button-row">
           <button className="secondary" type="button" onClick={() => setIsEditing(true)}>
             Amend
@@ -42,7 +43,7 @@ function CommentItem({ comment, onDelete, onUpdate }) {
             Drop
           </button>
         </div>
-      )}
+      ) : null}
     </div>
   )
 }
