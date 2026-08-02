@@ -1,0 +1,98 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+  build-and-push:
+    needs: test-and-build
+
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            --platform linux/amd64 \
+            -t ${{ secrets.DOCKER_USERNAME }}/community-frontend:latest \
+            -t ${{ secrets.DOCKER_USERNAME }}/community-frontend:${{ github.sha }} \
+            .
+
+      - name: Push frontend image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/community-frontend:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/community-frontend:${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare SSH key
+        run: |
+          set -e
+
+          mkdir -p ~/.ssh
+
+          printf '%s' "${{ secrets.SSH_PRIVATE_KEY_BASE64 }}" \
+            | base64 --decode > ~/.ssh/id_rsa
+
+          chmod 600 ~/.ssh/id_rsa
+
+          ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null
+
+          ssh-keyscan -H "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy frontend
+        run: |
+          ssh -i ~/.ssh/id_rsa \
+            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" << 'EOF'
+              set -e
+
+              cd ~/community-deploy
+
+              docker compose pull frontend
+
+              docker compose up -d --no-deps frontend
+
+              docker compose ps frontend
+          EOF
