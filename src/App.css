@@ -389,8 +389,10 @@ body:has(#login-section)::before {
 }
 
 .text-button:hover {
-  color: var(--terminal-green);
-  text-decoration: underline;
+  border-color: transparent;
+  background-color: #eaf4ff;
+  color: #3182f6;
+  text-decoration: none;
   opacity: 1;
 }
 
@@ -1588,6 +1590,118 @@ body:has(#post-list-section) .profile-avatar-button {
   font-family: var(--mono-font);
 }
 
+body:has(#profile-edit-section),
+body:has(#password-edit-section) {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(49, 130, 246, 0.12), transparent 28%),
+    radial-gradient(circle at 18% 76%, rgba(139, 184, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #eef6ff 100%);
+  color: #191f28;
+}
+
+body:has(#profile-edit-section)::before,
+body:has(#password-edit-section)::before {
+  display: none;
+}
+
+body:has(#profile-edit-section) .profile-avatar-button,
+body:has(#password-edit-section) .profile-avatar-button {
+  border-color: #d7e7ff;
+  background-color: #ffffff;
+  box-shadow: 0 12px 28px rgba(49, 130, 246, 0.16);
+}
+
+.profile-edit-section,
+.password-edit-section {
+  border-color: #e5edf8;
+  background: #ffffff;
+  color: #191f28;
+  box-shadow: 0 24px 70px rgba(49, 130, 246, 0.14);
+}
+
+.profile-edit-section h2,
+.password-edit-section h2 {
+  color: #191f28;
+}
+
+.profile-edit-section label,
+.password-edit-form label {
+  color: #6b7684;
+  font-family: var(--sans-font);
+}
+
+.profile-edit-form input,
+.password-edit-form input,
+.readonly-text {
+  border-color: #d7e2f0;
+  background-color: #ffffff;
+  color: #191f28;
+  font-family: var(--sans-font);
+  box-shadow: 0 1px 2px rgba(25, 31, 40, 0.04);
+}
+
+.profile-edit-form input::placeholder,
+.password-edit-form input::placeholder {
+  color: #9aa3af;
+}
+
+.profile-edit-form input:focus,
+.password-edit-form input:focus {
+  border-color: #3182f6;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.14);
+}
+
+.profile-edit-image-uploader .profile-image {
+  border-color: #b8d4ff;
+  background-color: #f4f9ff;
+}
+
+.profile-image-change-text {
+  background-color: #3182f6;
+  color: #ffffff;
+  font-family: var(--sans-font);
+}
+
+.profile-submit-button {
+  border-color: #3182f6;
+  background: #3182f6;
+  color: #ffffff;
+  font-family: var(--sans-font);
+}
+
+.profile-submit-button:hover {
+  border-color: #1b64da;
+  background: #1b64da;
+  color: #ffffff;
+}
+
+.profile-delete-button {
+  border-color: #e5e8ef;
+  background-color: #f2f4f6;
+  color: #6b7684;
+  font-family: var(--sans-font);
+}
+
+.profile-delete-button:hover {
+  border-color: #ffd1d1;
+  background-color: #fff1f1;
+  color: #e54848;
+}
+
+.profile-back-button {
+  border-color: #d7e7ff;
+  background-color: #eef6ff;
+  color: #3182f6;
+  font-family: var(--sans-font);
+  font-weight: 700;
+}
+
+.profile-back-button:hover {
+  border-color: #b8d4ff;
+  background-color: #e2efff;
+  color: #1b64da;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1596,19 +1710,20 @@ body:has(#post-list-section) .profile-avatar-button {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(235, 244, 255, 0.74);
+  backdrop-filter: blur(8px);
 }
 
 .confirm-modal {
   width: 100%;
   max-width: 408px;
   padding: 44px 36px 36px;
-  border: 1px solid var(--terminal-border);
-  border-radius: 8px;
-  background-color: var(--terminal-panel);
-  color: var(--terminal-text);
+  border: 1px solid #d7e7ff;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: #191f28;
   text-align: center;
-  box-shadow: var(--terminal-shadow);
+  box-shadow: 0 24px 70px rgba(49, 130, 246, 0.18);
 }
 
 .confirm-modal h2 {
@@ -1619,7 +1734,7 @@ body:has(#post-list-section) .profile-avatar-button {
 
 .confirm-modal p {
   margin: 0 0 28px;
-  color: var(--terminal-muted);
+  color: #6b7684;
   font-size: 16px;
 }
 
@@ -1639,9 +1754,27 @@ body:has(#post-list-section) .profile-avatar-button {
 }
 
 .confirm-submit-button {
-  border-color: var(--terminal-green);
-  background-color: var(--terminal-green);
-  color: #06100b;
+  border-color: #3182f6;
+  background-color: #3182f6;
+  color: #ffffff;
+}
+
+.confirm-submit-button:hover {
+  border-color: #1b64da;
+  background-color: #1b64da;
+  color: #ffffff;
+}
+
+.confirm-cancel-button {
+  border-color: #e5e8ef;
+  background-color: #f2f4f6;
+  color: #6b7684;
+}
+
+.confirm-cancel-button:hover {
+  border-color: #d7e7ff;
+  background-color: #eef6ff;
+  color: #3182f6;
 }
 
 @media (max-width: 700px) {

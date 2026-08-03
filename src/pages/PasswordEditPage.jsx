@@ -32,7 +32,7 @@ function PasswordEditPage({ navigate, showMessage, requireLogin }) {
     })
 
     if (Object.keys(errors).length > 0) {
-      showMessage('Secret rotation 정보를 다시 확인하세요.', 'error')
+      showMessage('비밀번호 변경 정보를 다시 확인해주세요.', 'error')
       return
     }
 
@@ -48,7 +48,7 @@ function PasswordEditPage({ navigate, showMessage, requireLogin }) {
       setNewPassword('')
       setNewPasswordCheck('')
       setTouched({})
-      showMessage('Secret을 rotation 했습니다.', 'success')
+      showMessage('비밀번호를 변경했습니다.', 'success')
     } catch (error) {
       showMessage(error.message, 'error')
     } finally {
@@ -64,17 +64,17 @@ function PasswordEditPage({ navigate, showMessage, requireLogin }) {
         type="button"
         onClick={() => navigate('list')}
       >
-        Back to Feed
+        목록으로 돌아가기
       </button>
 
       <form className="password-edit-form" onSubmit={handleSubmit}>
-        <h2>Rotate Secret</h2>
+        <h2>비밀번호 변경</h2>
 
-        <label htmlFor="current-password-input">current secret</label>
+        <label htmlFor="current-password-input">현재 비밀번호</label>
         <input
           id="current-password-input"
           type="password"
-          placeholder="current secret"
+          placeholder="현재 비밀번호를 입력해주세요"
           value={currentPassword}
           onBlur={() => markTouched('currentPassword')}
           onChange={(event) => {
@@ -87,11 +87,11 @@ function PasswordEditPage({ navigate, showMessage, requireLogin }) {
           {touched.currentPassword ? errors.currentPassword : ''}
         </p>
 
-        <label htmlFor="new-password-input">new secret</label>
+        <label htmlFor="new-password-input">새 비밀번호</label>
         <input
           id="new-password-input"
           type="password"
-          placeholder="new secret"
+          placeholder="새 비밀번호를 입력해주세요"
           value={newPassword}
           onBlur={() => markTouched('newPassword')}
           onChange={(event) => {
@@ -104,11 +104,11 @@ function PasswordEditPage({ navigate, showMessage, requireLogin }) {
           {touched.newPassword ? errors.newPassword : ''}
         </p>
 
-        <label htmlFor="new-password-check-input">confirm new secret</label>
+        <label htmlFor="new-password-check-input">새 비밀번호 확인</label>
         <input
           id="new-password-check-input"
           type="password"
-          placeholder="confirm new secret"
+          placeholder="새 비밀번호를 한 번 더 입력해주세요"
           value={newPasswordCheck}
           onBlur={() => markTouched('newPasswordCheck')}
           onChange={(event) => {
@@ -127,7 +127,7 @@ function PasswordEditPage({ navigate, showMessage, requireLogin }) {
           type="submit"
           disabled={isSubmitting}
         >
-          Rotate
+          변경하기
         </button>
       </form>
     </section>

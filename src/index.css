@@ -58,9 +58,9 @@ button {
 }
 
 button:hover {
-  border-color: var(--terminal-green);
-  background-color: #172231;
-  color: var(--terminal-green);
+  border-color: #b8d4ff;
+  background-color: #eaf4ff;
+  color: #3182f6;
   opacity: 1;
   transform: translateY(-1px);
 }

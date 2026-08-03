@@ -1,31 +1,41 @@
-function ConfirmModal({ isOpen, onCancel, onConfirm, isSubmitting = false }) {
+function ConfirmModal({
+  isOpen,
+  onCancel,
+  onConfirm,
+  isSubmitting = false,
+  title = '계정을 삭제할까요?',
+  message = '작성한 게시글과 댓글이 모두 삭제됩니다.',
+  cancelText = '취소',
+  confirmText = '확인',
+  modalId = 'confirm-modal',
+}) {
   if (!isOpen) {
     return null
   }
 
   return (
-    <div id="delete-user-modal" className="modal-overlay">
+    <div id={modalId} className="modal-overlay">
       <div className="confirm-modal">
-        <h2>Delete Account?</h2>
-        <p>All commits and threads will be removed.</p>
+        <h2>{title}</h2>
+        <p>{message}</p>
 
         <div className="confirm-modal-actions">
           <button
-            id="cancel-delete-user-button"
+            id={`${modalId}-cancel-button`}
             className="confirm-cancel-button"
             type="button"
             onClick={onCancel}
           >
-            Cancel
+            {cancelText}
           </button>
           <button
-            id="confirm-delete-user-button"
+            id={`${modalId}-confirm-button`}
             className="confirm-submit-button"
             type="button"
             disabled={isSubmitting}
             onClick={onConfirm}
           >
-            Confirm
+            {confirmText}
           </button>
         </div>
       </div>

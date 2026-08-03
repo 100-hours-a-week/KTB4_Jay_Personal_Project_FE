@@ -52,7 +52,7 @@ function ProfileEditPage({ navigate, showMessage }) {
       setSelectedProfileImage(imageData)
       setSelectedProfileImageChanged(true)
     } catch {
-      showMessage('Avatar 이미지를 읽지 못했습니다.', 'error')
+      showMessage('프로필 이미지를 읽지 못했습니다.', 'error')
     }
   }
 
@@ -73,7 +73,7 @@ function ProfileEditPage({ navigate, showMessage }) {
       profileImageKey = `local-profile-image-${userId}`
 
       if (!saveProfileImage(profileImageKey, selectedProfileImage)) {
-        showMessage('Avatar 저장 공간이 부족합니다. 더 작은 이미지를 선택해주세요.', 'error')
+        showMessage('프로필 이미지 저장 공간이 부족합니다. 더 작은 이미지를 선택해주세요.', 'error')
         return
       }
     }
@@ -93,7 +93,7 @@ function ProfileEditPage({ navigate, showMessage }) {
       }
 
       setCurrentUser(updatedUser)
-      showMessage('Profile config를 저장했습니다.', 'success')
+      showMessage('프로필 설정을 저장했습니다.', 'success')
       navigate('profileView', { keepMessage: true })
     } catch (error) {
       showMessage(error.message, 'error')
@@ -109,7 +109,7 @@ function ProfileEditPage({ navigate, showMessage }) {
       await deleteCurrentUser()
       setIsDeleteModalOpen(false)
       logout()
-      showMessage('Account delete가 완료되었습니다.', 'success')
+      showMessage('계정 삭제가 완료되었습니다.', 'success')
       navigate('welcome', { keepMessage: true })
     } catch (error) {
       showMessage(error.message, 'error')
@@ -126,13 +126,13 @@ function ProfileEditPage({ navigate, showMessage }) {
         type="button"
         onClick={() => navigate('list')}
       >
-        Back to Feed
+        목록으로 돌아가기
       </button>
 
       <form onSubmit={handleSubmit}>
-        <h2>Profile Config</h2>
+        <h2>프로필 변경</h2>
 
-        <label>avatar</label>
+        <label>프로필 이미지</label>
         <label className="profile-edit-image-uploader" htmlFor="profile-image-input">
           <img
             id="profile-edit-preview"
@@ -140,7 +140,7 @@ function ProfileEditPage({ navigate, showMessage }) {
             src={getProfileImageUrl(selectedProfileImage)}
             alt="프로필 이미지 미리보기"
           />
-          <span className="profile-image-change-text">change</span>
+          <span className="profile-image-change-text">변경</span>
         </label>
         <input
           id="profile-image-input"
@@ -151,16 +151,16 @@ function ProfileEditPage({ navigate, showMessage }) {
         />
 
         <div className="profile-edit-form">
-          <label>email</label>
+          <label>이메일</label>
           <p id="profile-edit-email" className="readonly-text">
             {currentUser?.email ?? '-'}
           </p>
 
-          <label htmlFor="profile-nickname-input">handle</label>
+          <label htmlFor="profile-nickname-input">닉네임</label>
           <input
             id="profile-nickname-input"
             type="text"
-            placeholder="anonymous handle"
+            placeholder="사용할 닉네임을 입력해주세요"
             value={nickname}
             onChange={(event) => {
               setNickname(event.target.value)
@@ -178,7 +178,7 @@ function ProfileEditPage({ navigate, showMessage }) {
             type="submit"
             disabled={isSubmitting}
           >
-            Save Config
+            저장하기
           </button>
           <button
             id="delete-user-button"
@@ -186,7 +186,7 @@ function ProfileEditPage({ navigate, showMessage }) {
             type="button"
             onClick={() => setIsDeleteModalOpen(true)}
           >
-            Delete Account
+            계정 삭제
           </button>
         </div>
       </form>
@@ -196,6 +196,11 @@ function ProfileEditPage({ navigate, showMessage }) {
         isSubmitting={isSubmitting}
         onCancel={() => setIsDeleteModalOpen(false)}
         onConfirm={handleDeleteUser}
+        modalId="delete-user-modal"
+        title="계정을 삭제할까요?"
+        message="작성한 게시글과 댓글이 모두 삭제됩니다."
+        cancelText="취소"
+        confirmText="삭제하기"
       />
     </section>
   )

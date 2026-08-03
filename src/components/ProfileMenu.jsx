@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ConfirmModal from './ConfirmModal'
 import { useAuth } from '../context/AuthContext'
 import { getProfileImageUrl } from '../utils/profileImage'
 
@@ -8,9 +9,11 @@ export const DEFAULT_PROFILE_IMAGE =
 function ProfileMenu({ navigate, showMessage }) {
   const { currentUser, logout } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false)
 
   function handleLogout() {
     logout()
+    setIsLogoutModalOpen(false)
     setShowDropdown(false)
     showMessage('로그아웃 되었습니다.', 'success')
     navigate('welcome')
@@ -53,10 +56,27 @@ function ProfileMenu({ navigate, showMessage }) {
         >
           비밀번호 변경
         </button>
-        <button id="logout-button" type="button" onClick={handleLogout}>
+        <button
+          id="logout-button"
+          type="button"
+          onClick={() => {
+            setShowDropdown(false)
+            setIsLogoutModalOpen(true)
+          }}
+        >
           로그아웃
         </button>
       </div>
+      <ConfirmModal
+        isOpen={isLogoutModalOpen}
+        modalId="logout-modal"
+        title="로그아웃할까요?"
+        message="현재 계정에서 로그아웃됩니다."
+        cancelText="아니요"
+        confirmText="로그아웃"
+        onCancel={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogout}
+      />
     </div>
   )
 }
