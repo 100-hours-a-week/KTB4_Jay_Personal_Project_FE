@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import Header from './components/Header'
-import GlobalMessage from './components/GlobalMessage'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import LoginPage from './pages/LoginPage'
 import PasswordEditPage from './pages/PasswordEditPage'
@@ -19,14 +18,13 @@ function AppContent() {
   const [view, setView] = useState('welcome')
   const [currentPage, setCurrentPage] = useState(0)
   const [currentPostId, setCurrentPostId] = useState(null)
-  const [message, setMessage] = useState({ text: '', type: '' })
 
   const showMessage = useCallback((text, type = 'error') => {
-    setMessage({ text, type })
+    void text
+    void type
   }, [])
 
   const clearMessage = useCallback(() => {
-    setMessage({ text: '', type: '' })
   }, [])
 
   const navigate = useCallback((nextView, options = {}) => {
@@ -113,7 +111,6 @@ function AppContent() {
     <>
       {showHeader && <Header navigate={navigate} showMessage={showMessage} />}
       <main className="container">
-        <GlobalMessage message={message} />
         {content}
       </main>
     </>

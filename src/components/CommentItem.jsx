@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { formatDate } from '../utils/format'
+import { formatDateOnly } from '../utils/format'
 
 function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(comment.content ?? '')
   const isOwner = Number(comment.authorId) === Number(currentUserId)
+  const canManage = isOwner && comment.deleted !== true
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -18,11 +19,11 @@ function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
       data-comment-id={comment.commentId}
     >
       <div className="comment-meta">
-        {comment.authorNickname ?? '익명'} · {formatDate(comment.createdAt)}
+        {comment.authorNickname ?? '익명'} · {formatDateOnly(comment.createdAt)}
       </div>
       <p>{comment.content}</p>
 
-      {isOwner && isEditing ? (
+      {canManage && isEditing ? (
         <form className="comment-edit-form" onSubmit={handleSubmit}>
           <input
             className="comment-edit-input"
@@ -34,7 +35,7 @@ function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
             취소
           </button>
         </form>
-      ) : isOwner ? (
+      ) : canManage ? (
         <div className="comment-button-row">
           <button className="secondary" type="button" onClick={() => setIsEditing(true)}>
             수정
