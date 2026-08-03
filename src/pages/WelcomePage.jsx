@@ -8,26 +8,26 @@ function WelcomePage({ navigate }) {
 
       <div className="welcome-actions">
         <div className="welcome-action">
-          <p>new contributor?</p>
+          <p>새로 오셨나요?</p>
           <button
             id="welcome-signup-button"
             className="welcome-button"
             type="button"
             onClick={() => navigate('signup')}
           >
-            Join
+            회원가입
           </button>
         </div>
 
         <div className="welcome-action">
-          <p>already pushed?</p>
+          <p>이미 오신 적이 있군요!</p>
           <button
             id="welcome-login-button"
             className="welcome-button welcome-button-dark"
             type="button"
             onClick={() => navigate('login')}
           >
-            Login
+            로그인
           </button>
         </div>
       </div>

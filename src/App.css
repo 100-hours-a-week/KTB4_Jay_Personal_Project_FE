@@ -74,6 +74,7 @@
 }
 
 .welcome-section {
+  position: relative;
   display: flex;
   width: 100%;
   min-height: 70vh;
@@ -82,7 +83,18 @@
   justify-content: flex-start;
   gap: 230px;
   padding: 122px 20px 48px;
-  color: var(--terminal-text);
+  color: #1f2937;
+}
+
+.welcome-section::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(49, 130, 246, 0.18), transparent 28%),
+    radial-gradient(circle at 18% 74%, rgba(139, 184, 255, 0.16), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #eef6ff 100%);
 }
 
 .welcome-copy {
@@ -91,7 +103,7 @@
 
 .welcome-copy p {
   margin: 0 0 8px;
-  color: var(--terminal-muted);
+  color: #6b7280;
   font-family: var(--mono-font);
   font-size: 24px;
   font-weight: 500;
@@ -100,17 +112,17 @@
 
 .welcome-copy p::before {
   content: "> ";
-  color: var(--terminal-green);
+  color: #3182f6;
 }
 
 .welcome-copy strong {
   display: block;
-  color: var(--terminal-text);
+  color: #191f28;
   font-size: 44px;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1.2;
-  text-shadow: 0 0 24px rgba(0, 255, 102, 0.18);
+  text-shadow: none;
 }
 
 .welcome-actions {
@@ -127,7 +139,7 @@
 
 .welcome-action p {
   margin: 0 0 14px;
-  color: var(--terminal-muted);
+  color: #8b95a1;
   font-size: 14px;
   font-weight: 600;
 }
@@ -145,19 +157,38 @@
 .welcome-button {
   width: 100%;
   height: 60px;
+  border-color: #d7e7ff;
   border-radius: 8px;
+  background: #eef6ff;
+  color: #3182f6;
   font-size: 18px;
   font-weight: 800;
+  box-shadow: 0 12px 30px rgba(49, 130, 246, 0.12);
 }
 
-.welcome-button-dark,
+.welcome-button-dark {
+  border-color: #3182f6;
+  background: #3182f6;
+  color: #ffffff;
+}
+
+.welcome-button:hover {
+  border-color: #3182f6;
+  background: #dcebff;
+  color: #1b64da;
+}
+
+.welcome-button-dark:hover {
+  border-color: #1b64da;
+  background: #1b64da;
+  color: #ffffff;
+}
+
 .login-submit-button {
   background: var(--terminal-green);
   color: #06100b;
 }
 
-.welcome-button:hover,
-.welcome-button-dark:hover,
 .login-submit-button:hover {
   border-color: var(--terminal-green);
   background: #31ff83;
