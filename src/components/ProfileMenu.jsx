@@ -12,7 +12,7 @@ function ProfileMenu({ navigate, showMessage }) {
   function handleLogout() {
     logout()
     setShowDropdown(false)
-    showMessage('Logout 되었습니다.', 'success')
+    showMessage('로그아웃 되었습니다.', 'success')
     navigate('welcome')
   }
 
@@ -41,7 +41,7 @@ function ProfileMenu({ navigate, showMessage }) {
             navigate('profileEdit')
           }}
         >
-          Profile Config
+          프로필 설정
         </button>
         <button
           id="show-password-edit-button"
@@ -51,10 +51,10 @@ function ProfileMenu({ navigate, showMessage }) {
             navigate('passwordEdit')
           }}
         >
-          Rotate Secret
+          비밀번호 변경
         </button>
         <button id="logout-button" type="button" onClick={handleLogout}>
-          Logout
+          로그아웃
         </button>
       </div>
     </div>

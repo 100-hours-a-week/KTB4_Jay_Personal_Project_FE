@@ -51,8 +51,6 @@ function PostListPage({
     <section id="post-list-section" className="section">
       <div className="post-list-intro">
         <p>
-          개발자들을 위한 익명 대나무숲 게시판
-          <br />
           게시글을 클릭하여 다양한 코드리뷰를 남겨보세요!
         </p>
       </div>
