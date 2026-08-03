@@ -34,7 +34,7 @@ function LoginPage({ navigate, showMessage }) {
       setPassword('')
       navigate('list', { page: 0 })
     } catch {
-      setHelperText('* email 또는 secret을 확인해주세요.')
+      setHelperText('* 이메일 또는 비밀번호를 확인해주세요.')
     } finally {
       setIsSubmitting(false)
     }
@@ -42,14 +42,14 @@ function LoginPage({ navigate, showMessage }) {
 
   return (
     <section id="login-section" className="login-section">
-      <h2 className="login-title">Login</h2>
+      <h2 className="login-title">로그인</h2>
 
       <form className="login-card" onSubmit={handleSubmit}>
-        <label htmlFor="login-email-input">email</label>
+        <label htmlFor="login-email-input">이메일</label>
         <input
           id="login-email-input"
           type="email"
-          placeholder="dev@example.com"
+          placeholder="이메일을 입력해주세요"
           value={email}
           onBlur={() => markTouched('email')}
           onChange={(event) => {
@@ -62,11 +62,11 @@ function LoginPage({ navigate, showMessage }) {
           {touched.email ? errors.email : ''}
         </p>
 
-        <label htmlFor="login-password-input">secret</label>
+        <label htmlFor="login-password-input">비밀번호</label>
         <input
           id="login-password-input"
           type="password"
-          placeholder="enter secret"
+          placeholder="비밀번호를 입력해주세요"
           value={password}
           onBlur={() => markTouched('password')}
           onChange={(event) => {
@@ -89,7 +89,7 @@ function LoginPage({ navigate, showMessage }) {
           type="submit"
           disabled={!isValid || isSubmitting}
         >
-          Login
+          로그인하기
         </button>
         <button
           id="go-signup-button"
@@ -100,7 +100,7 @@ function LoginPage({ navigate, showMessage }) {
             navigate('signup')
           }}
         >
-          Join workspace
+          아직 계정이 없으신가요? 회원가입하기
         </button>
       </form>
     </section>

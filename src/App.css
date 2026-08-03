@@ -290,6 +290,84 @@
   transform: none;
 }
 
+body:has(#login-section) {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(49, 130, 246, 0.12), transparent 28%),
+    radial-gradient(circle at 18% 76%, rgba(139, 184, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #eef6ff 100%);
+}
+
+body:has(#login-section)::before {
+  display: none;
+}
+
+.login-title {
+  color: #191f28;
+}
+
+.login-card {
+  border-color: #e5edf8;
+  background: #ffffff;
+  color: #191f28;
+  box-shadow: 0 24px 70px rgba(49, 130, 246, 0.14);
+}
+
+.login-card label {
+  color: #6b7684;
+}
+
+.login-card input {
+  margin: 0;
+  border-color: #d7e2f0;
+  background-color: #ffffff;
+  color: #191f28;
+  box-shadow: 0 1px 2px rgba(25, 31, 40, 0.04);
+}
+
+.login-card input::placeholder {
+  color: #9aa3af;
+}
+
+.login-card input:focus {
+  border-color: #3182f6;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.14);
+}
+
+.login-card .field-error {
+  min-height: 18px;
+  margin: 6px 0 18px;
+}
+
+.login-card .helper-text {
+  color: #ff5a52;
+}
+
+.login-submit-button {
+  border-color: #3182f6;
+  background: #3182f6;
+  color: #ffffff;
+}
+
+.login-submit-button:not(:disabled):hover {
+  border-color: #1b64da;
+  background: #1b64da;
+  color: #ffffff;
+}
+
+.login-submit-button:disabled {
+  border-color: #e5e8ef;
+  background-color: #f2f4f6;
+  color: #8b95a1;
+}
+
+.login-card .text-button {
+  color: #6b7684;
+}
+
+.login-card .text-button:hover {
+  color: #3182f6;
+}
+
 .text-button {
   display: block;
   margin: 12px auto 0;
