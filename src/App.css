@@ -528,6 +528,115 @@
   color: #596575;
 }
 
+body:has(#signup-section) {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(49, 130, 246, 0.12), transparent 28%),
+    radial-gradient(circle at 18% 76%, rgba(139, 184, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #eef6ff 100%);
+}
+
+body:has(#signup-section)::before {
+  display: none;
+}
+
+.signup-section {
+  z-index: 0;
+  border-color: #e5edf8;
+  background: #ffffff;
+  color: #191f28;
+  box-shadow: 0 24px 70px rgba(49, 130, 246, 0.14);
+}
+
+.signup-section::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(49, 130, 246, 0.16), transparent 28%),
+    radial-gradient(circle at 18% 76%, rgba(139, 184, 255, 0.14), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #eef6ff 100%);
+}
+
+.signup-section h2 {
+  color: #191f28;
+}
+
+.signup-section label {
+  color: #6b7684;
+}
+
+.signup-section input {
+  margin: 8px 0 0;
+  border-color: #d7e2f0;
+  background-color: #ffffff;
+  color: #191f28;
+  box-shadow: 0 1px 2px rgba(25, 31, 40, 0.04);
+}
+
+.signup-section input::placeholder {
+  color: #9aa3af;
+}
+
+.signup-section input:focus {
+  border-color: #3182f6;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.14);
+}
+
+.signup-back-button {
+  color: #6b7684;
+}
+
+.signup-back-button:hover {
+  border-color: transparent;
+  background-color: #eef6ff;
+  color: #3182f6;
+}
+
+.signup-profile-field .field-error {
+  color: #8b95a1;
+}
+
+.signup-section form > .field-error {
+  min-height: 18px;
+  margin: 6px 0 18px;
+}
+
+.signup-section .signup-profile-uploader {
+  border-color: #b8d4ff;
+  background: #f4f9ff;
+}
+
+.signup-section .signup-profile-plus {
+  color: #3182f6;
+}
+
+.signup-submit-button {
+  border-color: #3182f6;
+  background: #3182f6;
+  color: #ffffff;
+}
+
+.signup-submit-button:not(:disabled):hover {
+  border-color: #1b64da;
+  background: #1b64da;
+  color: #ffffff;
+}
+
+.signup-submit-button:disabled {
+  border-color: #e5e8ef;
+  background-color: #f2f4f6;
+  color: #8b95a1;
+}
+
+.signup-section .text-button {
+  color: #6b7684;
+}
+
+.signup-section .text-button:hover {
+  color: #3182f6;
+}
+
 #post-list-section {
   width: min(100%, 620px);
   margin: 0 auto;

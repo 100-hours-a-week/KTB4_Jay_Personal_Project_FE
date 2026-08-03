@@ -10,15 +10,15 @@ export function validateLogin({ email, password }) {
   const errors = {}
 
   if (email.trim() === '') {
-    errors.email = '* email is required.'
+    errors.email = '* 이메일을 입력해주세요.'
   } else if (!isValidEmail(email.trim())) {
-    errors.email = '* valid email format required. (ex: dev@example.com)'
+    errors.email = '* 이메일 형식으로 입력해주세요. (예: dev@example.com)'
   }
 
   if (password.trim() === '') {
-    errors.password = '* secret is required.'
+    errors.password = '* 비밀번호를 입력해주세요.'
   } else if (!isValidPassword(password.trim())) {
-    errors.password = '* secret must be 8-20 chars with lowercase, number, and special char.'
+    errors.password = '* 비밀번호는 영문 소문자, 숫자, 특수문자를 포함해 8~20자로 입력해주세요.'
   }
 
   return errors
@@ -28,23 +28,23 @@ export function validateSignup({ email, password, passwordCheck, nickname }) {
   const errors = {}
 
   if (!isValidEmail(email.trim())) {
-    errors.email = '* valid email format required. (ex: dev@example.com)'
+    errors.email = '* 이메일 형식으로 입력해주세요. (예: dev@example.com)'
   }
 
   if (!isValidPassword(password)) {
-    errors.password = '* secret must be 8-20 chars with lowercase, number, and special char.'
+    errors.password = '* 비밀번호는 영문 소문자, 숫자, 특수문자를 포함해 8~20자로 입력해주세요.'
   }
 
   if (passwordCheck.trim() === '') {
-    errors.passwordCheck = '* confirm secret is required.'
+    errors.passwordCheck = '* 비밀번호를 한 번 더 입력해주세요.'
   } else if (password !== passwordCheck) {
-    errors.passwordCheck = '* secret does not match.'
+    errors.passwordCheck = '* 비밀번호가 일치하지 않아요.'
   }
 
   if (nickname.trim() === '') {
-    errors.nickname = '* handle is required.'
+    errors.nickname = '* 닉네임을 입력해주세요.'
   } else if (nickname.trim().length > 10) {
-    errors.nickname = '* handle can be up to 10 chars.'
+    errors.nickname = '* 닉네임은 10자 이내로 입력해주세요.'
   }
 
   return errors
@@ -64,11 +64,11 @@ export function validatePostForm({ title, content }) {
 
 export function validateProfile({ nickname }) {
   if (nickname.trim() === '') {
-    return '* handle is required.'
+    return '* 닉네임을 입력해주세요.'
   }
 
   if (nickname.trim().length > 10) {
-    return '* handle can be up to 10 chars.'
+    return '* 닉네임은 10자 이내로 입력해주세요.'
   }
 
   return ''
@@ -78,17 +78,17 @@ export function validatePasswordEdit({ currentPassword, newPassword, newPassword
   const errors = {}
 
   if (currentPassword.trim() === '') {
-    errors.currentPassword = '* current secret is required.'
+    errors.currentPassword = '* 현재 비밀번호를 입력해주세요.'
   }
 
   if (!isValidPassword(newPassword)) {
-    errors.newPassword = '* secret must be 8-20 chars with lowercase, number, and special char.'
+    errors.newPassword = '* 새 비밀번호는 영문 소문자, 숫자, 특수문자를 포함해 8~20자로 입력해주세요.'
   }
 
   if (newPasswordCheck.trim() === '') {
-    errors.newPasswordCheck = '* confirm secret is required.'
+    errors.newPasswordCheck = '* 새 비밀번호를 한 번 더 입력해주세요.'
   } else if (newPassword !== newPasswordCheck) {
-    errors.newPasswordCheck = '* secret does not match.'
+    errors.newPasswordCheck = '* 새 비밀번호가 일치하지 않아요.'
   }
 
   return errors

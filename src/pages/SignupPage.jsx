@@ -9,7 +9,7 @@ function SignupPage({ navigate, showMessage }) {
   const [passwordCheck, setPasswordCheck] = useState('')
   const [nickname, setNickname] = useState('')
   const [profileImage, setProfileImage] = useState('')
-  const [profileImageError, setProfileImageError] = useState('optional')
+  const [profileImageError, setProfileImageError] = useState('나중에 설정해도 괜찮아요')
   const [touched, setTouched] = useState({})
   const [serverErrors, setServerErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -36,7 +36,7 @@ function SignupPage({ navigate, showMessage }) {
 
     if (!file) {
       setProfileImage('')
-      setProfileImageError('optional')
+      setProfileImageError('')
       return
     }
 
@@ -68,7 +68,7 @@ function SignupPage({ navigate, showMessage }) {
     setServerErrors({})
 
     if (!isValid) {
-      showMessage('Join 정보를 다시 확인하세요.', 'error')
+      showMessage('회원가입 정보를 다시 확인해주세요.', 'error')
       return
     }
 
@@ -93,17 +93,17 @@ function SignupPage({ navigate, showMessage }) {
       setPasswordCheck('')
       setNickname('')
       setProfileImage('')
-      setProfileImageError('optional')
-      showMessage('Join 완료. Login 해주세요.', 'success')
+      setProfileImageError('나중에 설정해도 괜찮아요')
+      showMessage('회원가입 완료~ 로그인 해주세요!', 'success')
       navigate('login', { keepMessage: true })
     } catch (error) {
       if (error.code === 'already_exist_email') {
         setTouched((prev) => ({ ...prev, email: true }))
-        setServerErrors((prev) => ({ ...prev, email: '* duplicated email.' }))
+        setServerErrors((prev) => ({ ...prev, email: '* 이미 사용 중인 이메일이에요.' }))
         showMessage('', '')
       } else if (error.code === 'already_exist_nickname') {
         setTouched((prev) => ({ ...prev, nickname: true }))
-        setServerErrors((prev) => ({ ...prev, nickname: '* duplicated handle.' }))
+        setServerErrors((prev) => ({ ...prev, nickname: '* 이미 사용 중인 닉네임이에요.' }))
         showMessage('', '')
       } else {
         showMessage(error.message, 'error')
@@ -124,11 +124,11 @@ function SignupPage({ navigate, showMessage }) {
       >
         ‹
       </button>
-      <h2>Join</h2>
+      <h2>회원가입</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="signup-profile-field">
-          <label htmlFor="signup-profile-image-input">avatar</label>
+          <label htmlFor="signup-profile-image-input">프로필 이미지를 추가해볼까요?</label>
           <p id="signup-profile-image-error" className="field-error">
             {profileImageError}
           </p>
@@ -154,11 +154,11 @@ function SignupPage({ navigate, showMessage }) {
           onChange={handleProfileImageChange}
         />
 
-        <label htmlFor="signup-email-input">email*</label>
+        <label htmlFor="signup-email-input">이메일*</label>
         <input
           id="signup-email-input"
           type="email"
-          placeholder="dev@example.com"
+          placeholder="이메일을 입력해주세요"
           value={email}
           onBlur={() => markTouched('email')}
           onChange={(event) => {
@@ -172,11 +172,11 @@ function SignupPage({ navigate, showMessage }) {
           {emailErrorMessage}
         </p>
 
-        <label htmlFor="signup-password-input">secret*</label>
+        <label htmlFor="signup-password-input">비밀번호*</label>
         <input
           id="signup-password-input"
           type="password"
-          placeholder="enter secret"
+          placeholder="비밀번호를 입력해주세요"
           value={password}
           onBlur={() => markTouched('password')}
           onChange={(event) => {
@@ -189,11 +189,11 @@ function SignupPage({ navigate, showMessage }) {
           {touched.password ? errors.password : ''}
         </p>
 
-        <label htmlFor="signup-password-check-input">confirm secret*</label>
+        <label htmlFor="signup-password-check-input">비밀번호 확인*</label>
         <input
           id="signup-password-check-input"
           type="password"
-          placeholder="confirm secret"
+          placeholder="비밀번호를 한 번 더 입력해주세요"
           value={passwordCheck}
           onBlur={() => markTouched('passwordCheck')}
           onChange={(event) => {
@@ -206,11 +206,11 @@ function SignupPage({ navigate, showMessage }) {
           {touched.passwordCheck ? errors.passwordCheck : ''}
         </p>
 
-        <label htmlFor="signup-nickname-input">handle*</label>
+        <label htmlFor="signup-nickname-input">닉네임*</label>
         <input
           id="signup-nickname-input"
           type="text"
-          placeholder="anonymous handle"
+          placeholder="사용할 닉네임을 입력해주세요"
           value={nickname}
           onBlur={() => markTouched('nickname')}
           onChange={(event) => {
@@ -231,7 +231,7 @@ function SignupPage({ navigate, showMessage }) {
             type="submit"
             disabled={!isValid || isSubmitting}
           >
-            Create Account
+            가입하기
           </button>
           <button
             id="cancel-signup-button"
@@ -239,7 +239,7 @@ function SignupPage({ navigate, showMessage }) {
             type="button"
             onClick={() => navigate('login')}
           >
-            already have access? Login
+            이미 계정이 있으신가요? 로그인하기
           </button>
         </div>
       </form>
