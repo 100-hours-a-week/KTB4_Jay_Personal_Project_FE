@@ -10,7 +10,7 @@ function PostEditPage({ navigate, showMessage, requireLogin, currentPostId }) {
   useEffect(() => {
     async function loadPost() {
       if (currentPostId === null) {
-        showMessage('Amend할 commit이 없습니다.', 'error')
+        showMessage('수정할 게시글이 없습니다.', 'error')
         navigate('list')
         return
       }
@@ -36,7 +36,7 @@ function PostEditPage({ navigate, showMessage, requireLogin, currentPostId }) {
     }
 
     if (currentPostId === null) {
-      showMessage('Amend할 commit이 없습니다.', 'error')
+      showMessage('수정할 게시글이 없습니다.', 'error')
       return
     }
 
@@ -62,9 +62,9 @@ function PostEditPage({ navigate, showMessage, requireLogin, currentPostId }) {
   return (
     <section id="post-edit-section" className="section">
       <form onSubmit={handleSubmit}>
-        <h2>Amend Commit</h2>
+        <h2>게시글 수정</h2>
 
-        <label htmlFor="edit-title-input">commit.title</label>
+        <label htmlFor="edit-title-input">제목</label>
         <input
           id="edit-title-input"
           type="text"
@@ -72,7 +72,7 @@ function PostEditPage({ navigate, showMessage, requireLogin, currentPostId }) {
           onChange={(event) => setTitle(event.target.value)}
         />
 
-        <label htmlFor="edit-content-input">commit.body</label>
+        <label htmlFor="edit-content-input">내용</label>
         <textarea
           id="edit-content-input"
           value={content}
@@ -81,10 +81,10 @@ function PostEditPage({ navigate, showMessage, requireLogin, currentPostId }) {
 
         <div className="button-row">
           <button id="update-post-button" type="submit" disabled={isSubmitting}>
-            Deploy Patch
+            수정하기
           </button>
           <button id="cancel-edit-button" type="button" onClick={() => navigate('detail')}>
-            Cancel
+            취소
           </button>
         </div>
       </form>

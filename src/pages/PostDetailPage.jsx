@@ -32,7 +32,7 @@ function PostDetailPage({
 
   const loadDetail = useCallback(async (showError = true) => {
     if (currentPostId === null) {
-      showMessage('Log 상세 조회에 실패했습니다.', 'error')
+      showMessage('게시글 상세 조회에 실패했습니다.', 'error')
       navigate('list')
       return
     }
@@ -98,11 +98,11 @@ function PostDetailPage({
     }
 
     if (post === null) {
-      showMessage('Drop할 commit이 없습니다.', 'error')
+      showMessage('삭제할 게시글이 없습니다.', 'error')
       return
     }
 
-    if (!window.confirm('이 Commit을 Drop 하시겠습니까?')) {
+    if (!window.confirm('이 게시글을 삭제하시겠습니까?')) {
       return
     }
 
@@ -123,12 +123,12 @@ function PostDetailPage({
     }
 
     if (post === null) {
-      showMessage('Issue를 생성할 로그가 없습니다.', 'error')
+      showMessage('신고할 게시글이 없습니다.', 'error')
       return
     }
 
     if (reportReason.trim() === '') {
-      showMessage('Issue reason을 입력하세요.', 'error')
+      showMessage('신고 사유를 입력해주세요.', 'error')
       return
     }
 
@@ -156,19 +156,19 @@ function PostDetailPage({
     }
 
     if (post === null) {
-      showMessage('Thread를 남길 로그가 없습니다.', 'error')
+      showMessage('댓글을 남길 게시글이 없습니다.', 'error')
       return
     }
 
     if (commentInput.trim() === '') {
-      showMessage('Code review 내용을 입력하세요.', 'error')
+      showMessage('댓글 내용을 입력해주세요.', 'error')
       return
     }
 
     try {
       await createComment(post.postId, { comment: commentInput })
       setCommentInput('')
-      showMessage('Code review를 남겼습니다.', 'success')
+      showMessage('댓글을 남겼습니다.', 'success')
       await loadDetail(false)
     } catch (error) {
       showMessage(error.message, 'error')
@@ -182,7 +182,7 @@ function PostDetailPage({
 
     try {
       await deleteComment(commentId)
-      showMessage('Thread를 Drop 했습니다.', 'success')
+      showMessage('댓글을 삭제했습니다.', 'success')
       await loadDetail(false)
     } catch (error) {
       showMessage(error.message, 'error')
@@ -195,13 +195,13 @@ function PostDetailPage({
     }
 
     if (comment.trim() === '') {
-      showMessage('Amend할 Code Review 내용을 입력하세요.', 'error')
+      showMessage('수정할 댓글 내용을 입력해주세요.', 'error')
       return
     }
 
     try {
       await updateComment(commentId, { comment })
-      showMessage('Code Review를 수정했습니다.', 'success')
+      showMessage('댓글을 수정했습니다.', 'success')
       await loadDetail(false)
     } catch (error) {
       showMessage(error.message, 'error')
@@ -211,7 +211,7 @@ function PostDetailPage({
   if (post === null) {
     return (
       <section id="post-detail-section" className="section post-detail-section">
-        <p className="helper-text">Loading log...</p>
+        <p className="helper-text">게시글을 불러오는 중입니다...</p>
       </section>
     )
   }
@@ -233,11 +233,11 @@ function PostDetailPage({
                 }
               }}
             >
-              Bug Report
+              신고하기
             </button>
           )}
           <button id="back-to-list-button" type="button" onClick={() => navigate('list')}>
-            Back to Feed
+            목록으로 돌아가기
           </button>
         </div>
       </div>
@@ -246,38 +246,38 @@ function PostDetailPage({
         <span id="detail-author">{getAuthorName(post)}</span>
         <span id="detail-created-at">{formatDate(post.createdAt)}</span>
         <span id="detail-edited" className={post.edited ? '' : 'hidden'}>
-          {post.edited ? 'amended' : ''}
+          {post.edited ? '수정됨' : ''}
         </span>
       </div>
 
       <div id="detail-content" className="detail-content">
-        {post.blinded ? 'This log was hidden by issue reports.' : (post.content ?? '')}
+        {post.blinded ? '신고로 숨김 처리된 게시글입니다.' : (post.content ?? '')}
       </div>
 
       <div className="count-row">
         <span>
-          View: <strong id="detail-view-count">{post.viewCount ?? '-'}</strong>
+          조회수 <strong id="detail-view-count">{post.viewCount ?? '-'}</strong>
         </span>
         <span>
-          Star: <strong id="detail-like-count">{post.likeCount ?? '-'}</strong>
+          좋아요 <strong id="detail-like-count">{post.likeCount ?? '-'}</strong>
         </span>
         <span>
-          Thread: <strong id="detail-comment-count">{post.commentCount ?? '-'}</strong>
+          댓글 <strong id="detail-comment-count">{post.commentCount ?? '-'}</strong>
         </span>
       </div>
 
       <div className="button-row">
         <button id="like-post-button" type="button" disabled={isSubmitting} onClick={handleStar}>
-          {post.liked ? '★ Unstar' : '★ Star'}
+          {post.liked ? '★ 좋아요 취소' : '★ 좋아요'}
         </button>
         {isOwner && (
           <button id="show-edit-button" type="button" onClick={() => navigate('edit')}>
-            Amend
+            수정
           </button>
         )}
         {isOwner && (
           <button id="delete-post-button" className="danger" type="button" onClick={handleDeletePost}>
-            Drop
+            삭제
           </button>
         )}
       </div>
@@ -287,21 +287,21 @@ function PostDetailPage({
         className={`report-box${isReportOpen ? '' : ' hidden'}`}
         onSubmit={handleReport}
       >
-        <h3>Create Issue</h3>
+        <h3>신고하기</h3>
         <input
           id="report-reason-input"
           type="text"
-          placeholder="issue reason"
+          placeholder="신고 사유를 입력해주세요"
           value={reportReason}
           onChange={(event) => setReportReason(event.target.value)}
         />
         <button id="report-post-button" className="danger" type="submit">
-          Create Issue
+          신고 접수
         </button>
       </form>
 
       <div className="comment-box">
-        <h3>Thread</h3>
+        <h3>댓글</h3>
         <CommentList
           comments={comments}
           currentUserId={userId}
@@ -313,12 +313,12 @@ function PostDetailPage({
           <input
             id="comment-input"
             type="text"
-            placeholder="leave a code review"
+            placeholder="댓글을 입력해주세요"
             value={commentInput}
             onChange={(event) => setCommentInput(event.target.value)}
           />
           <button id="create-comment-button" type="submit">
-            Review
+            등록
           </button>
         </form>
       </div>

@@ -52,11 +52,11 @@ export function validateSignup({ email, password, passwordCheck, nickname }) {
 
 export function validatePostForm({ title, content }) {
   if (title.trim() === '') {
-    return 'commit.title을 입력하세요.'
+    return '제목을 입력해주세요.'
   }
 
   if (content.trim() === '') {
-    return 'commit.body를 입력하세요.'
+    return '내용을 입력해주세요.'
   }
 
   return ''

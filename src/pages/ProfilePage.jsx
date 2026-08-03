@@ -20,9 +20,9 @@ function ProfilePage({ navigate, showMessage }) {
   return (
     <section id="profile-view-section" className="section">
       <div className="section-header">
-        <h2>Profile</h2>
+        <h2>프로필</h2>
         <button id="profile-view-edit-button" type="button" onClick={() => navigate('profileEdit')}>
-          Config
+          설정
         </button>
       </div>
 
@@ -36,15 +36,15 @@ function ProfilePage({ navigate, showMessage }) {
 
         <div className="profile-info">
           <p>
-            <strong>user.id</strong>{' '}
+            <strong>사용자 ID</strong>{' '}
             <span id="profile-view-user-id">{currentUser?.userId ?? currentUser?.id ?? '-'}</span>
           </p>
           <p>
-            <strong>email</strong>{' '}
+            <strong>이메일</strong>{' '}
             <span id="profile-view-email">{currentUser?.email ?? '-'}</span>
           </p>
           <p>
-            <strong>handle</strong>{' '}
+            <strong>닉네임</strong>{' '}
             <span id="profile-view-nickname">{currentUser?.nickname ?? '-'}</span>
           </p>
         </div>

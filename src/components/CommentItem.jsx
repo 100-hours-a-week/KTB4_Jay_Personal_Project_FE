@@ -18,7 +18,7 @@ function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
       data-comment-id={comment.commentId}
     >
       <div className="comment-meta">
-        {comment.authorNickname ?? 'anonymous'} · {formatDate(comment.createdAt)}
+        {comment.authorNickname ?? '익명'} · {formatDate(comment.createdAt)}
       </div>
       <p>{comment.content}</p>
 
@@ -29,18 +29,18 @@ function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
             value={editValue}
             onChange={(event) => setEditValue(event.target.value)}
           />
-          <button type="submit">Save</button>
+          <button type="submit">저장</button>
           <button type="button" onClick={() => setIsEditing(false)}>
-            Cancel
+            취소
           </button>
         </form>
       ) : isOwner ? (
         <div className="comment-button-row">
           <button className="secondary" type="button" onClick={() => setIsEditing(true)}>
-            Amend
+            수정
           </button>
           <button className="danger" type="button" onClick={() => onDelete(comment.commentId)}>
-            Drop
+            삭제
           </button>
         </div>
       ) : null}

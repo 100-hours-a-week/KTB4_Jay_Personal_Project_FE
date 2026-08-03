@@ -82,7 +82,7 @@ async function apiRequestInternal(path, options = {}, canRetry) {
 
 async function refreshAccessToken() {
   if (authTokens.refreshToken === null) {
-    throw new Error('Login이 필요합니다.')
+    throw new Error('로그인이 필요합니다.')
   }
 
   const response = await fetch(`${API_BASE_URL}/users/token/refresh`, {

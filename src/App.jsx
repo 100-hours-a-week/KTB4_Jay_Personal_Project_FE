@@ -50,7 +50,7 @@ function AppContent() {
       loadCurrentUser()
         .catch(() => {
           setView(nextView)
-          showMessage('Login이 필요합니다.', 'error')
+          showMessage('로그인이 필요합니다.', 'error')
         })
       return false
     }

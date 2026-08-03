@@ -1524,6 +1524,224 @@ body:has(#post-list-section) .profile-avatar-button {
   color: var(--terminal-text);
 }
 
+body:has(#post-create-section),
+body:has(#post-edit-section),
+body:has(#post-detail-section),
+body:has(#profile-view-section) {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(49, 130, 246, 0.12), transparent 28%),
+    radial-gradient(circle at 18% 76%, rgba(139, 184, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #eef6ff 100%);
+  color: #191f28;
+}
+
+body:has(#post-create-section)::before,
+body:has(#post-edit-section)::before,
+body:has(#post-detail-section)::before,
+body:has(#profile-view-section)::before {
+  display: none;
+}
+
+body:has(#post-create-section) .profile-avatar-button,
+body:has(#post-edit-section) .profile-avatar-button,
+body:has(#post-detail-section) .profile-avatar-button,
+body:has(#profile-view-section) .profile-avatar-button {
+  border-color: #d7e7ff;
+  background-color: #ffffff;
+  box-shadow: 0 12px 28px rgba(49, 130, 246, 0.16);
+}
+
+#post-create-section,
+#post-edit-section,
+.post-detail-section,
+#profile-view-section {
+  border-color: #e5edf8;
+  background: #ffffff;
+  color: #191f28;
+  box-shadow: 0 24px 70px rgba(49, 130, 246, 0.14);
+}
+
+#post-create-section h2,
+#post-edit-section h2,
+.post-detail-section h2,
+#profile-view-section h2 {
+  color: #191f28;
+}
+
+#post-create-section h2::before,
+#post-edit-section h2::before,
+.post-detail-section h2::before,
+.comment-box h3::before {
+  content: none;
+}
+
+#post-create-section label,
+#post-edit-section label {
+  color: #6b7684;
+  font-family: var(--sans-font);
+}
+
+#post-create-section input,
+#post-create-section textarea,
+#post-edit-section input,
+#post-edit-section textarea,
+.report-box input,
+.comment-form input,
+.comment-edit-input {
+  border-color: #d7e2f0;
+  background-color: #ffffff;
+  color: #191f28;
+  font-family: var(--sans-font);
+  box-shadow: 0 1px 2px rgba(25, 31, 40, 0.04);
+}
+
+#post-create-section input::placeholder,
+#post-create-section textarea::placeholder,
+#post-edit-section input::placeholder,
+#post-edit-section textarea::placeholder,
+.report-box input::placeholder,
+.comment-form input::placeholder {
+  color: #9aa3af;
+}
+
+#post-create-section input:focus,
+#post-create-section textarea:focus,
+#post-edit-section input:focus,
+#post-edit-section textarea:focus,
+.report-box input:focus,
+.comment-form input:focus,
+.comment-edit-input:focus {
+  border-color: #3182f6;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.14);
+}
+
+#post-create-section .button-row button,
+#post-edit-section .button-row button,
+.post-detail-section .button-row button,
+.comment-form button,
+.comment-button-row button,
+#report-post-button {
+  border-color: #d7e7ff;
+  background: #eef6ff;
+  color: #3182f6;
+  font-family: var(--sans-font);
+  font-weight: 800;
+}
+
+#create-post-button,
+#update-post-button,
+#like-post-button,
+#create-comment-button,
+#report-post-button {
+  border-color: #3182f6;
+  background: #3182f6;
+  color: #ffffff;
+}
+
+#post-create-section .button-row button:hover,
+#post-edit-section .button-row button:hover,
+.post-detail-section .button-row button:hover,
+.comment-form button:hover,
+.comment-button-row button:hover,
+#report-post-button:hover {
+  border-color: #1b64da;
+  background: #eaf4ff;
+  color: #1b64da;
+}
+
+#create-post-button:hover,
+#update-post-button:hover,
+#like-post-button:hover,
+#create-comment-button:hover,
+#report-post-button:hover {
+  border-color: #1b64da;
+  background: #1b64da;
+  color: #ffffff;
+}
+
+#delete-post-button,
+.post-detail-section .button-row .danger {
+  border-color: #ffd1d1;
+  background: #fff1f1;
+  color: #e54848;
+}
+
+#delete-post-button:hover,
+.post-detail-section .button-row .danger:hover {
+  border-color: #ffb8b8;
+  background: #ffe8e8;
+  color: #d93636;
+}
+
+.post-detail-section .section-header {
+  border-bottom-color: #e5edf8;
+}
+
+.meta span,
+.count-row span {
+  border-color: #d7e7ff;
+  background-color: #f6faff;
+  color: #6b7684;
+  font-family: var(--sans-font);
+}
+
+.detail-content {
+  border-top-color: #e5edf8;
+  border-bottom-color: #e5edf8;
+  color: #333d4b;
+  font-family: var(--sans-font);
+}
+
+.count-row strong {
+  color: #3182f6;
+}
+
+.report-box,
+.comment-box {
+  border-top-color: #e5edf8;
+}
+
+.report-box h3,
+.comment-box h3 {
+  color: #191f28;
+}
+
+.comment-item {
+  border-color: #e5edf8;
+  background-color: #ffffff;
+  color: #333d4b;
+  box-shadow: 0 12px 28px rgba(49, 130, 246, 0.08);
+}
+
+#comment-list {
+  color: #6b7684;
+}
+
+.comment-meta {
+  color: #8b95a1;
+  font-family: var(--sans-font);
+}
+
+#profile-view-section .section-header button {
+  border-color: #3182f6;
+  background: #3182f6;
+  color: #ffffff;
+}
+
+#profile-view-section .profile-image {
+  border-color: #b8d4ff;
+  background-color: #f4f9ff;
+}
+
+#profile-view-section .profile-info p {
+  color: #333d4b;
+  font-family: var(--sans-font);
+}
+
+#profile-view-section .profile-info strong {
+  color: #6b7684;
+}
+
 .profile-edit-image-uploader {
   position: relative;
   display: block;

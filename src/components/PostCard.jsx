@@ -44,9 +44,9 @@ function PostCard({ post, onClick }) {
         <h3>{post.title}</h3>
         <div className="post-card-meta">
           <p className="post-counts">
-            <span aria-label="Star">⭐️ Stars</span> {post.likeCount ?? 0}
-            <span aria-label="Thread">💬 댓글수</span> {post.commentCount ?? 0}
-            <span aria-label="View">👀 조회수</span> {post.viewCount ?? 0}
+            <span aria-label="좋아요">⭐️ 좋아요</span> {post.likeCount ?? 0}
+            <span aria-label="댓글수">💬 댓글수</span> {post.commentCount ?? 0}
+            <span aria-label="조회수">👀 조회수</span> {post.viewCount ?? 0}
           </p>
           <p className="post-date">{formatDateOnly(post.createdAt)}</p>
         </div>

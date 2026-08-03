@@ -57,9 +57,9 @@ function PostListPage({
 
       <div className="post-list-heading">
         <div className="post-list-heading-main">
-          <h2>Posts</h2>
+          <h2>게시글</h2>
           <div className="post-list-toolbar">
-            <div className="sort-toggle" aria-label="Feed sort">
+            <div className="sort-toggle" aria-label="게시글 정렬">
               <button
                 id="sort-latest-button"
                 className={`sort-button${sortType === 'latest' ? ' active' : ''}`}
@@ -83,7 +83,7 @@ function PostListPage({
                   인기순
                 </button>
                 {isHotMenuOpen && (
-                  <div className="hot-period-menu" aria-label="Hot period">
+                  <div className="hot-period-menu" aria-label="인기순 기간">
                     <button
                       className={rankPeriod === 'DAILY' ? 'active' : ''}
                       type="button"
@@ -121,7 +121,7 @@ function PostListPage({
             type="button"
             onClick={() => navigate('login')}
           >
-            Login
+            로그인
           </button>
           <button
             id="show-create-button"
@@ -132,7 +132,7 @@ function PostListPage({
               }
             }}
           >
-            Commit
+            글쓰기
           </button>
         </div>
       </div>
@@ -143,12 +143,12 @@ function PostListPage({
         type="button"
         onClick={() => setRefreshKey((prev) => prev + 1)}
       >
-        Refresh
+        새로고침
       </button>
       <div id="post-list" className="post-list">
-        {isLoading && <p className="post-empty">Loading feed...</p>}
+        {isLoading && <p className="post-empty">게시글을 불러오는 중입니다...</p>}
         {!isLoading && posts.length === 0 && (
-          <p className="post-empty">No logs yet. Push the first anonymous commit.</p>
+          <p className="post-empty">아직 게시글이 없습니다. 첫 글을 작성해보세요.</p>
         )}
         {!isLoading &&
           posts.map((post) => (
