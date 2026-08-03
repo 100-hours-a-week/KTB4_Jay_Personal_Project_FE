@@ -1,6 +1,23 @@
-import { formatDate, getAuthorName } from '../utils/format'
+import { formatDateOnly, getAuthorName } from '../utils/format'
+import { getProfileImageUrl } from '../utils/profileImage'
+
+function getPostImage(post) {
+  return post?.thumbnailUrl ?? post?.imageUrl ?? post?.coverImage ?? post?.postImage ?? ''
+}
+
+function getPostAuthorImage(post) {
+  return (
+    post?.authorProfileImage ??
+    post?.profileImage ??
+    post?.authorProfileImageUrl ??
+    post?.userProfileImage ??
+    ''
+  )
+}
 
 function PostCard({ post, onClick }) {
+  const postImage = getPostImage(post)
+
   return (
     <div
       className={`post-card${post.blinded ? ' blinded' : ''}`}
@@ -14,17 +31,34 @@ function PostCard({ post, onClick }) {
         }
       }}
     >
+      <div className="post-card-image">
+        {postImage ? (
+          <img src={postImage} alt="" />
+        ) : (
+          <div className="post-card-image-placeholder" aria-hidden="true">
+            <span>{String(post.title ?? '글').slice(0, 1)}</span>
+          </div>
+        )}
+      </div>
       <div className="post-card-top">
         <h3>{post.title}</h3>
         <div className="post-card-meta">
           <p className="post-counts">
-            ★ Star {post.likeCount ?? 0} Thread {post.commentCount ?? 0} View{' '}
-            {post.viewCount ?? 0}
+            <span aria-label="Star">⭐️ Stars</span> {post.likeCount ?? 0}
+            <span aria-label="Thread">💬 댓글수</span> {post.commentCount ?? 0}
+            <span aria-label="View">👀 조회수</span> {post.viewCount ?? 0}
           </p>
-          <p className="post-date">{formatDate(post.createdAt)}</p>
+          <p className="post-date">{formatDateOnly(post.createdAt)}</p>
         </div>
       </div>
-      <p className="post-author">{getAuthorName(post)}</p>
+      <div className="post-author">
+        <img
+          className="post-author-image"
+          src={getProfileImageUrl(getPostAuthorImage(post))}
+          alt=""
+        />
+        <p>{getAuthorName(post)}</p>
+      </div>
     </div>
   )
 }

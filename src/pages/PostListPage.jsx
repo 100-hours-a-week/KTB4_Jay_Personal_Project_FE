@@ -4,7 +4,7 @@ import Pagination from '../components/Pagination'
 import PostCard from '../components/PostCard'
 import { useAuth } from '../context/AuthContext'
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 6
 
 function PostListPage({
   navigate,
@@ -55,6 +55,67 @@ function PostListPage({
           <br />
           게시글을 클릭하여 다양한 코드리뷰를 남겨보세요!
         </p>
+      </div>
+
+      <div className="post-list-heading">
+        <div className="post-list-heading-main">
+          <h2>Posts</h2>
+          <div className="post-list-toolbar">
+            <div className="sort-toggle" aria-label="Feed sort">
+              <button
+                id="sort-latest-button"
+                className={`sort-button${sortType === 'latest' ? ' active' : ''}`}
+                type="button"
+                onClick={() => {
+                  setSortType('latest')
+                  setIsHotMenuOpen(false)
+                  setCurrentPage(0)
+                }}
+              >
+                최신순
+              </button>
+              <div className="hot-sort-wrapper">
+                <button
+                  id="sort-popular-button"
+                  className={`sort-button${sortType === 'popular' ? ' active' : ''}`}
+                  type="button"
+                  aria-expanded={isHotMenuOpen}
+                  onClick={() => setIsHotMenuOpen((prev) => !prev)}
+                >
+                  인기순
+                </button>
+                {isHotMenuOpen && (
+                  <div className="hot-period-menu" aria-label="Hot period">
+                    <button
+                      className={rankPeriod === 'DAILY' ? 'active' : ''}
+                      type="button"
+                      onClick={() => {
+                        setSortType('popular')
+                        setRankPeriod('DAILY')
+                        setIsHotMenuOpen(false)
+                        setCurrentPage(0)
+                      }}
+                    >
+                      일간 랭킹
+                    </button>
+                    <button
+                      className={rankPeriod === 'WEEKLY' ? 'active' : ''}
+                      type="button"
+                      onClick={() => {
+                        setSortType('popular')
+                        setRankPeriod('WEEKLY')
+                        setIsHotMenuOpen(false)
+                        setCurrentPage(0)
+                      }}
+                    >
+                      주간 랭킹
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="post-list-actions">
           <button
             id="show-list-login-button"
@@ -78,64 +139,9 @@ function PostListPage({
         </div>
       </div>
 
-      <div className="post-list-toolbar">
-        <div className="sort-toggle" aria-label="Feed sort">
-          <button
-            id="sort-latest-button"
-            className={`sort-button${sortType === 'latest' ? ' active' : ''}`}
-            type="button"
-            onClick={() => {
-              setSortType('latest')
-              setIsHotMenuOpen(false)
-              setCurrentPage(0)
-            }}
-          >
-            Latest
-          </button>
-          <div className="hot-sort-wrapper">
-            <button
-              id="sort-popular-button"
-              className={`sort-button${sortType === 'popular' ? ' active' : ''}`}
-              type="button"
-              aria-expanded={isHotMenuOpen}
-              onClick={() => setIsHotMenuOpen((prev) => !prev)}
-            >
-              Hot
-            </button>
-            {isHotMenuOpen && (
-              <div className="hot-period-menu" aria-label="Hot period">
-                <button
-                  className={rankPeriod === 'DAILY' ? 'active' : ''}
-                  type="button"
-                  onClick={() => {
-                    setSortType('popular')
-                    setRankPeriod('DAILY')
-                    setIsHotMenuOpen(false)
-                    setCurrentPage(0)
-                  }}
-                >
-                  Daily
-                </button>
-                <button
-                  className={rankPeriod === 'WEEKLY' ? 'active' : ''}
-                  type="button"
-                  onClick={() => {
-                    setSortType('popular')
-                    setRankPeriod('WEEKLY')
-                    setIsHotMenuOpen(false)
-                    setCurrentPage(0)
-                  }}
-                >
-                  Weekly
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
       <button
         id="refresh-posts-button"
+        className="hidden"
         type="button"
         onClick={() => setRefreshKey((prev) => prev + 1)}
       >

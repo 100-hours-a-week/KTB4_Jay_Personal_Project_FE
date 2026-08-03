@@ -6,6 +6,14 @@ export function formatDate(dateText) {
   return String(dateText).replace('T', ' ').slice(0, 19)
 }
 
+export function formatDateOnly(dateText) {
+  if (!dateText) {
+    return ''
+  }
+
+  return String(dateText).slice(0, 10)
+}
+
 export function getAuthorName(post) {
   if (post?.blinded === true) {
     return '블라인드 처리된 사용자입니다.'
