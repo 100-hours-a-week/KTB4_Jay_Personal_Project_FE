@@ -78,7 +78,7 @@ function PostCreatePage({ navigate, showMessage, requireLogin }) {
   return (
     <section id="post-create-section" className="section">
       <form onSubmit={handleCreate}>
-        <h2>게시글 작성</h2>
+        <h2>코드 올리기</h2>
 
         <label htmlFor="create-title-input">제목</label>
         <input
@@ -99,7 +99,7 @@ function PostCreatePage({ navigate, showMessage, requireLogin }) {
 
         <div className="button-row">
           <button id="create-post-button" type="submit" disabled={isSubmitting}>
-            게시하기
+            리뷰 요청하기
           </button>
           <button id="save-draft-button" type="button" onClick={handleSaveDraft}>
             임시저장

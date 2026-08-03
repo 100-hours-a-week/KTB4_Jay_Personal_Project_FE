@@ -51,13 +51,13 @@ function PostListPage({
     <section id="post-list-section" className="section">
       <div className="post-list-intro">
         <p>
-          게시글을 클릭하여 다양한 코드리뷰를 남겨보세요!
+          코드를 올리고 실시간으로 리뷰를 나눠보세요!
         </p>
       </div>
 
       <div className="post-list-heading">
         <div className="post-list-heading-main">
-          <h2>게시글</h2>
+          <h2>코드리뷰 보드</h2>
           <div className="post-list-toolbar">
             <div className="sort-toggle" aria-label="게시글 정렬">
               <button
@@ -132,7 +132,7 @@ function PostListPage({
               }
             }}
           >
-            글쓰기
+            코드 올리기
           </button>
         </div>
       </div>
@@ -146,9 +146,9 @@ function PostListPage({
         새로고침
       </button>
       <div id="post-list" className="post-list">
-        {isLoading && <p className="post-empty">게시글을 불러오는 중입니다...</p>}
+        {isLoading && <p className="post-empty">코드리뷰 보드를 불러오는 중입니다...</p>}
         {!isLoading && posts.length === 0 && (
-          <p className="post-empty">아직 게시글이 없습니다. 첫 글을 작성해보세요.</p>
+          <p className="post-empty">아직 올라온 코드가 없습니다. 첫 리뷰를 요청해보세요.</p>
         )}
         {!isLoading &&
           posts.map((post) => (
