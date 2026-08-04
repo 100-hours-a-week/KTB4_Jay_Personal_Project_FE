@@ -7,15 +7,13 @@ import ChatInput from './ChatInput'
 import ChatMessageList from './ChatMessageList'
 
 function getChatWebSocketUrl() {
-  const baseUrl = API_BASE_URL || 'http://localhost:8080'
+  const baseUrl = API_BASE_URL?.startsWith('http')
+    ? API_BASE_URL
+    : window.location.origin
 
-  try {
-    const url = new URL('/ws', baseUrl)
-    url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:'
-    return url.toString()
-  } catch {
-    return 'ws://localhost:8080/ws'
-  }
+  const url = new URL('/ws', baseUrl)
+  url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:'
+  return url.toString()
 }
 
 function extractMessageList(result) {
