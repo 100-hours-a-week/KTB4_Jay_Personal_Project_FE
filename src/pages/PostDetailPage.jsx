@@ -7,6 +7,7 @@ import {
   starPost,
   unstarPost,
 } from '../api/postApi'
+import ChatBox from '../components/ChatBox'
 import CommentList from '../components/CommentList'
 import { useAuth } from '../context/AuthContext'
 import { formatDateOnly, getAuthorName } from '../utils/format'
@@ -218,82 +219,66 @@ function PostDetailPage({
 
   return (
     <section id="post-detail-section" className="section post-detail-section">
-      <div className="section-header">
-        <div className="detail-title-group">
-          <p className="detail-page-label">리뷰 세션</p>
-          <p className="detail-page-subtitle">코드에 대한 피드백을 작성해주세요!</p>
-          <h2 id="detail-title">{post.title}</h2>
+      <div className="post-detail-main">
+        <div className="section-header">
+          <div className="detail-title-group">
+            <p className="detail-page-label">리뷰 세션</p>
+            <p className="detail-page-subtitle">코드에 대한 피드백을 작성해주세요!</p>
+            <h2 id="detail-title">{post.title}</h2>
+          </div>
+
         </div>
 
-        <div className="button-row">
+        <div className="meta">
+          <span id="detail-author">{getAuthorName(post)}</span>
+          <span aria-hidden="true">·</span>
+          <span id="detail-created-at">{formatDateOnly(post.createdAt)}</span>
+          <span id="detail-edited" className={post.edited ? '' : 'hidden'}>
+            {post.edited ? '수정됨' : ''}
+          </span>
+        </div>
+
+        <div id="detail-content" className="detail-content">
+          {post.blinded ? '신고로 숨김 처리된 게시글입니다.' : (post.content ?? '')}
+        </div>
+
+        <div className="count-row">
+          <span>
+            <span className="count-label" aria-label="조회수">👀</span>
+            <strong id="detail-view-count">{post.viewCount ?? '-'}</strong>
+          </span>
+          <span>
+            <span className="count-label" aria-label="도움돼요">⭐️</span>
+            <strong id="detail-like-count">{post.likeCount ?? '-'}</strong>
+          </span>
+          <span>
+            <span className="count-label" aria-label="댓글수">💬</span>
+            <strong id="detail-comment-count">{post.commentCount ?? '-'}</strong>
+          </span>
+        </div>
+      </div>
+
+      <aside className="post-detail-chat-sidebar">
+        <div className="chat-sidebar-nav">
           <button id="back-to-list-button" type="button" onClick={() => navigate('list')}>
             목록으로 돌아가기
           </button>
         </div>
-      </div>
+        <ChatBox />
+      </aside>
 
-      <div className="meta">
-        <span id="detail-author">{getAuthorName(post)}</span>
-        <span aria-hidden="true">·</span>
-        <span id="detail-created-at">{formatDateOnly(post.createdAt)}</span>
-        <span id="detail-edited" className={post.edited ? '' : 'hidden'}>
-          {post.edited ? '수정됨' : ''}
-        </span>
-      </div>
-
-      <div className="count-row">
-        <span>
-          <span className="count-label" aria-label="조회수">👀</span>
-          <strong id="detail-view-count">{post.viewCount ?? '-'}</strong>
-        </span>
-        <span>
-          <span className="count-label" aria-label="도움돼요">⭐️</span>
-          <strong id="detail-like-count">{post.likeCount ?? '-'}</strong>
-        </span>
-        <span>
-          <span className="count-label" aria-label="댓글수">💬</span>
-          <strong id="detail-comment-count">{post.commentCount ?? '-'}</strong>
-        </span>
-      </div>
-
-      <div id="detail-content" className="detail-content">
-        {post.blinded ? '신고로 숨김 처리된 게시글입니다.' : (post.content ?? '')}
-      </div>
-
-      {isOwner && (
-        <div className="button-row detail-owner-action-row">
-          <button id="show-edit-button" type="button" onClick={() => navigate('edit')}>
-            수정
-          </button>
-          <button id="delete-post-button" className="danger" type="button" onClick={handleDeletePost}>
-            삭제
-          </button>
-        </div>
-      )}
-
-      <div className="comment-box">
-        <h3>라이브 리뷰</h3>
-        <CommentList
-          comments={comments}
-          currentUserId={userId}
-          onDelete={handleDeleteComment}
-          onUpdate={handleUpdateComment}
-        />
-
-        <form className="comment-form" onSubmit={handleCreateComment}>
-          <input
-            id="comment-input"
-            type="text"
-            placeholder="라이브 리뷰를 입력해주세요"
-            value={commentInput}
-            onChange={(event) => setCommentInput(event.target.value)}
-          />
-          <button id="create-comment-button" type="submit">
-            전송
-          </button>
-        </form>
-
+      <div className="post-detail-lower">
         <div className="detail-bottom-nav">
+          {isOwner && (
+            <button id="show-edit-button" type="button" onClick={() => navigate('edit')}>
+              수정
+            </button>
+          )}
+          {isOwner && (
+            <button id="delete-post-button" className="danger" type="button" onClick={handleDeletePost}>
+              삭제
+            </button>
+          )}
           <button id="bottom-back-to-list-button" type="button" onClick={() => navigate('list')}>
             목록으로 돌아가기
           </button>
@@ -308,7 +293,7 @@ function PostDetailPage({
               disabled={isSubmitting}
               onClick={handleStar}
             >
-              ⭐️
+              {post.liked ? '⭐️' : '☆'}
             </button>
             <div className="detail-like-copy">
               <strong>도움이 됐다면 눌러주세요</strong>
@@ -348,6 +333,29 @@ function PostDetailPage({
             신고 접수
           </button>
         </form>
+
+        <div className="comment-box">
+          <h3>라이브 리뷰</h3>
+          <CommentList
+            comments={comments}
+            currentUserId={userId}
+            onDelete={handleDeleteComment}
+            onUpdate={handleUpdateComment}
+          />
+
+          <form className="comment-form" onSubmit={handleCreateComment}>
+            <input
+              id="comment-input"
+              type="text"
+              placeholder="라이브 리뷰를 입력해주세요"
+              value={commentInput}
+              onChange={(event) => setCommentInput(event.target.value)}
+            />
+            <button id="create-comment-button" type="submit">
+              전송
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   )
