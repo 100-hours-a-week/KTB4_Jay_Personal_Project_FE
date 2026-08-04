@@ -264,7 +264,7 @@ function PostDetailPage({
             목록으로 돌아가기
           </button>
         </div>
-        <ChatBox />
+        <ChatBox postId={post.postId} />
       </aside>
 
       <div className="post-detail-lower">

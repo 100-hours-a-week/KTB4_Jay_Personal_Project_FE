@@ -1,6 +1,10 @@
 import ChatMessageItem from './ChatMessageItem'
 
 function ChatMessageList({ messages }) {
+  if (messages.length === 0) {
+    return <p className="chat-empty">아직 채팅 메시지가 없습니다.</p>
+  }
+
   return (
     <ul className="chat-message-list" aria-label="채팅 메시지 목록">
       {messages.map((message) => (

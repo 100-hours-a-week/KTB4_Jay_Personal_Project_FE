@@ -2145,6 +2145,24 @@ body:has(#profile-view-section) .profile-avatar-button {
   font-weight: 700;
 }
 
+.chat-status,
+.chat-empty,
+.chat-error {
+  margin: 0 0 14px;
+  font-family: var(--sans-font);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.chat-status,
+.chat-empty {
+  color: #8b95a1;
+}
+
+.chat-error {
+  color: #ff5a52;
+}
+
 .chat-message-list {
   display: flex;
   flex-direction: column;
@@ -2234,6 +2252,16 @@ body:has(#profile-view-section) .profile-avatar-button {
 .chat-send-button:hover {
   background-color: #1b64da;
   color: #ffffff;
+}
+
+.chat-input:disabled,
+.chat-send-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.chat-send-button:disabled:hover {
+  background-color: #3182f6;
 }
 
 @media (max-width: 1080px) {
