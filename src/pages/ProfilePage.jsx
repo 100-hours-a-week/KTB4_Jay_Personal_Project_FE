@@ -20,7 +20,12 @@ function ProfilePage({ navigate, showMessage }) {
   return (
     <section id="profile-view-section" className="section">
       <div className="section-header">
-        <h2>프로필</h2>
+        <div className="profile-view-title-group">
+          <button id="profile-view-back-button" type="button" onClick={() => navigate('list')}>
+            목록으로 돌아가기
+          </button>
+          <h2>프로필</h2>
+        </div>
         <button id="profile-view-edit-button" type="button" onClick={() => navigate('profileEdit')}>
           설정
         </button>
