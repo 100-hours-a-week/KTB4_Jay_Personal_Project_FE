@@ -119,7 +119,20 @@
   <div markdown="1">
 
 ```text
+project root
+├── Dockerfile
+├── README.md
+├── eslint.config.js
+├── index.html
+├── nginx.conf
+├── package.json
+└── vite.config.js
+```
+
+```text
 src
+├── App.css
+├── App.jsx
 ├── api
 │   ├── authApi.js
 │   ├── chatApi.js
@@ -127,7 +140,9 @@ src
 │   ├── commentApi.js
 │   └── postApi.js
 ├── assets
-│   └── hero.png
+│   ├── hero.png
+│   ├── react.svg
+│   └── vite.svg
 ├── components
 │   ├── ChatBox.jsx
 │   ├── ChatInput.jsx
@@ -145,6 +160,8 @@ src
 │   └── messageMap.js
 ├── context
 │   └── AuthContext.jsx
+├── index.css
+├── main.jsx
 ├── pages
 │   ├── LoginPage.jsx
 │   ├── PasswordEditPage.jsx
@@ -156,6 +173,7 @@ src
 │   ├── ProfilePage.jsx
 │   ├── SignupPage.jsx
 │   └── WelcomePage.jsx
+├── stompTest.js
 └── utils
     ├── format.js
     ├── profileImage.js
@@ -452,6 +470,19 @@ Vanilla JS와 초기 React 구조에서는 각 페이지에서 직접 fetch를 �
 
 - CI/CD는 단순히 편의 기능이 아니라 반복 배포 과정의 실수를 줄이는 장치입니다.
 - 직접 배포와 자동화 배포를 모두 경험하면서 Docker 이미지 기반 배포의 장점을 이해했습니다.
+
+## 성능 및 개선 확인
+
+프론트엔드는 백엔드 랭킹 API처럼 ms 단위로 기록한 성능 수치가 많지는 않았습니다. 대신 회고 과정에서 불필요한 API 호출, 전체 리렌더링, 수동 배포 시간을 줄이는 방향으로 개선했습니다.
+
+| 항목 | 문제 상황 | 개선 내용 | 확인 방법 |
+| --- | --- | --- | --- |
+| 좋아요 UI 갱신 | 좋아요/취소 후 전체 목록 재요청 | 응답의 `likeCount`로 해당 카드 상태만 갱신 | Network 탭에서 목록 API 재호출 여부 확인 |
+| 인기글 탭 전환 | 최신글과 인기글 API 기준이 섞임 | `/posts`, `/posts/rank`, `period` 상태 분리 | 탭/페이지 전환 시 요청 URL 확인 |
+| 배포 과정 | EC2 수동 접속, 빌드, 복사, 재시작 | GitHub Actions와 Docker 이미지 기반 배포로 반복 작업 축소 | Actions 로그, EC2 `docker compose ps` |
+| 빌드 산출물 | 로컬 `dist` 복사 방식 | Docker 멀티스테이지 빌드로 운영 이미지 내부에서 빌드 | `docker build`, Nginx 컨테이너 정적 파일 확인 |
+
+수치 측정은 주로 백엔드 인기글 조회와 배치에서 진행했고, 프론트엔드는 사용자 조작 1회당 요청 수와 배포 절차 감소를 중심으로 확인했습니다.
 
 ## 실행 방법
 
