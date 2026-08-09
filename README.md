@@ -563,7 +563,7 @@ docker run -p 80:80 community-frontend
 
 | 로그인 | 회원가입 |
 |---|---|
-| <img width="1401" height="799" alt="image" src="https://github.com/user-attachments/assets/e0c7e551-23c9-4ebc-851d-34cdb0220132" /> | `<img width="1209" height="833" alt="image" src="https://github.com/user-attachments/assets/f4609bec-2681-40ac-92c4-778536cdc3ce" />` |
+| <img width="1401" height="799" alt="image" src="https://github.com/user-attachments/assets/e0c7e551-23c9-4ebc-851d-34cdb0220132" /> | <img width="1209" height="833" alt="image" src="https://github.com/user-attachments/assets/f4609bec-2681-40ac-92c4-778536cdc3ce" /> |
 
 ### 게시글 목록
 
