@@ -15,6 +15,12 @@
 
 ## Repository
 
+| 구분 | 링크 |
+|---|---|
+| Backend | [github_be_link](https://github.com/100-hours-a-week/KTB4_Jay_Personal_Project_BE) |
+| Frontend | [github_fe_link](https://github.com/100-hours-a-week/KTB4_Jay_Personal_Project_FE) |
+| 시연 영상 | [google_drive_link](https://drive.google.com/file/d/1CjIGSUEz2xKyWmeRw4WlikOgNKLoRqIr/view?usp=sharing) |
+
 - Back-end Github: https://github.com/100-hours-a-week/KTB4_Jay_Personal_Project_BE
 - Front-end Github: https://github.com/100-hours-a-week/KTB4_Jay_Personal_Project_FE
 - 시연 영상: https://drive.google.com/file/d/1CjIGSUEz2xKyWmeRw4WlikOgNkLoRqIr/view?usp=sharing
