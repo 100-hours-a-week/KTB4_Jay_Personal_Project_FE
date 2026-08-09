@@ -361,43 +361,45 @@ function MarkdownEditor({ id, value, onChange }) {
 
   return (
     <>
-      <div className="markdown-toolbar" aria-label="본문 서식 도구" onMouseDown={saveCurrentRange}>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          className="markdown-file-input"
-          onChange={handleImageChange}
-        />
-        <button type="button" className="markdown-toolbar-button" onClick={openCodeModal}>코드</button>
-        <button
-          type="button"
-          className="markdown-toolbar-button"
-          disabled={isUploadingImage}
-          onClick={openImageFilePicker}
-        >
-          {isUploadingImage ? '업로드' : '이미지'}
-        </button>
-        <button type="button" className="markdown-toolbar-button" onClick={() => runInlineCommand('bold')}>B</button>
-        <button type="button" className="markdown-toolbar-button" onClick={() => runInlineCommand('italic')}>I</button>
-        <button type="button" className="markdown-toolbar-button" onClick={applyLink}>링크</button>
-      </div>
+      <div className="blog-editor">
+        <div className="markdown-toolbar" aria-label="본문 서식 도구" onMouseDown={saveCurrentRange}>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="markdown-file-input"
+            onChange={handleImageChange}
+          />
+          <button type="button" className="markdown-toolbar-button" onClick={openCodeModal}>코드</button>
+          <button
+            type="button"
+            className="markdown-toolbar-button"
+            disabled={isUploadingImage}
+            onClick={openImageFilePicker}
+          >
+            {isUploadingImage ? '업로드' : '이미지'}
+          </button>
+          <button type="button" className="markdown-toolbar-button" onClick={() => runInlineCommand('bold')}>B</button>
+          <button type="button" className="markdown-toolbar-button" onClick={() => runInlineCommand('italic')}>I</button>
+          <button type="button" className="markdown-toolbar-button" onClick={applyLink}>링크</button>
+        </div>
 
-      <div
-        id={id}
-        ref={editorRef}
-        className="markdown-rich-editor"
-        contentEditable
-        role="textbox"
-        aria-label="내용"
-        aria-multiline="true"
-        data-placeholder="나누고 싶은 이야기를 적어주세요"
-        onInput={syncMarkdown}
-        onPaste={handlePaste}
-        onKeyUp={saveCurrentRange}
-        onMouseUp={saveCurrentRange}
-        onFocus={saveCurrentRange}
-      ></div>
+        <div
+          id={id}
+          ref={editorRef}
+          className="markdown-rich-editor"
+          contentEditable
+          role="textbox"
+          aria-label="내용"
+          aria-multiline="true"
+          data-placeholder="나누고 싶은 이야기를 적어주세요"
+          onInput={syncMarkdown}
+          onPaste={handlePaste}
+          onKeyUp={saveCurrentRange}
+          onMouseUp={saveCurrentRange}
+          onFocus={saveCurrentRange}
+        ></div>
+      </div>
 
       {isCodeModalOpen && (
         <div className="markdown-modal-backdrop" role="presentation">
