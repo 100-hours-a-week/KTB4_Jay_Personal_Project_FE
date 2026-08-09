@@ -9,17 +9,15 @@
 
 ## 개발 인원 및 기간
 
-- 개발 기간: 2026년 7주차 ~ 12주차
-- 개발 인원: 1명
+- 개발 기간: 2026-05-12 ~ 2026-08-09
+- 개발 인원: 프론트엔드/백엔드 1명 (본인)
 - 담당 범위: 화면 구현, API 연동, React 마이그레이션, 인증 상태 관리, 실시간 채팅 UI, 배포
 
 ## Repository
 
-- Front-end Github: `제출용 FE GitHub 링크 입력`
-- Back-end Github: `제출용 BE GitHub 링크 입력`
-- 배포 주소: `배포 URL 입력`
+- Back-end Github: `https://github.com/100-hours-a-week/KTB4_Jay_Personal_Project_BE`
+- Front-end Github: `https://github.com/100-hours-a-week/KTB4_Jay_Personal_Project_FE`
 - 시연 영상: `시연 영상 링크 입력`
-- 회고/문서: `Notion 또는 문서 링크 입력`
 
 ## 사용 기술 및 Tools
 
@@ -565,7 +563,8 @@ docker run -p 80:80 community-frontend
 
 | 로그인 | 회원가입 |
 |---|---|
-| `이미지 링크 입력` | `이미지 링크 입력` |
+| `<img width="544" height="493" alt="image" src="https://github.com/user-attachments/assets/8cadd85e-dc0d-44b6-bc1e-816488a37a1d" />
+` | `이미지 링크 입력` |
 
 ### 게시글 목록
 
