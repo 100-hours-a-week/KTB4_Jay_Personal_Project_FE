@@ -572,38 +572,25 @@ docker run -p 80:80 community-frontend
 
 | 최신글 | DAILY 인기글 | WEEKLY 인기글 |
 |---|---|---|
-| <img width="1158" height="929" alt="image" src="https://github.com/user-attachments/assets/3f53f146-349d-450a-bc28-982824c2e08b" />
- | <img width="1113" height="934" alt="image" src="https://github.com/user-attachments/assets/05e787e4-c5f5-449f-9c7d-c14592a3688d" />
- | <img width="1128" height="932" alt="image" src="https://github.com/user-attachments/assets/2826b49e-d931-4141-afc3-5d50beb9cd37" />
- |
+| <img width="1158" height="929" alt="image" src="https://github.com/user-attachments/assets/3f53f146-349d-450a-bc28-982824c2e08b" />| <img width="1113" height="934" alt="image" src="https://github.com/user-attachments/assets/05e787e4-c5f5-449f-9c7d-c14592a3688d" />| <img width="1128" height="932" alt="image" src="https://github.com/user-attachments/assets/2826b49e-d931-4141-afc3-5d50beb9cd37" /> |
 
 ### 게시글
 
 | 작성 | 상세 | 수정 | 삭제 |
 |---|---|---|---|
-| <img width="797" height="952" alt="image" src="https://github.com/user-attachments/assets/b5cebdda-e428-428c-8258-73ffd517fc0b" />
- | <img width="1043" height="913" alt="image" src="https://github.com/user-attachments/assets/eb2ec50e-bf2e-4e8c-b86e-113986e03cf2" />
- | <img width="770" height="940" alt="image" src="https://github.com/user-attachments/assets/806cf850-655e-4193-88de-9bd85a93ee6f" />
- | <img width="1211" height="819" alt="image" src="https://github.com/user-attachments/assets/452d06b2-7154-49e2-88dc-274efbb41ea6" />
- |
+| <img width="797" height="952" alt="image" src="https://github.com/user-attachments/assets/b5cebdda-e428-428c-8258-73ffd517fc0b" />| <img width="1043" height="913" alt="image" src="https://github.com/user-attachments/assets/eb2ec50e-bf2e-4e8c-b86e-113986e03cf2" />| <img width="770" height="940" alt="image" src="https://github.com/user-attachments/assets/806cf850-655e-4193-88de-9bd85a93ee6f" />| <img width="1211" height="819" alt="image" src="https://github.com/user-attachments/assets/452d06b2-7154-49e2-88dc-274efbb41ea6" />|
 
 ### 댓글 / 신고 / 채팅
 
 | 댓글 | 신고 | 실시간 채팅 |
 |---|---|---|
-| <img width="1172" height="446" alt="image" src="https://github.com/user-attachments/assets/67d3adf5-cbf9-4f73-ad34-3fe5098a2b8b" />
- | <img width="1207" height="853" alt="image" src="https://github.com/user-attachments/assets/91c7154b-90c0-4011-a558-389370ef69e6" />
- | <img width="506" height="409" alt="image" src="https://github.com/user-attachments/assets/5812ecb1-0caf-406f-a0c8-9331d53aa4c6" />
- |
+| <img width="1172" height="446" alt="image" src="https://github.com/user-attachments/assets/67d3adf5-cbf9-4f73-ad34-3fe5098a2b8b" />| <img width="1207" height="853" alt="image" src="https://github.com/user-attachments/assets/91c7154b-90c0-4011-a558-389370ef69e6" />| <img width="506" height="409" alt="image" src="https://github.com/user-attachments/assets/5812ecb1-0caf-406f-a0c8-9331d53aa4c6" />|
 
 ### 프로필
 
 | 프로필 수정 | 비밀번호 변경 | 회원 탈퇴 |
 |---|---|---|
-| <img width="1050" height="784" alt="image" src="https://github.com/user-attachments/assets/695e20b6-38af-403b-9f87-1a5ee9044150" />
- | <img width="1026" height="725" alt="image" src="https://github.com/user-attachments/assets/9b7a49ec-0378-47fb-a4ad-53f5fe33c470" />
- | <img width="1048" height="782" alt="image" src="https://github.com/user-attachments/assets/11503e16-4ded-4a33-9f30-d729938329a8" />
- |
+| <img width="1050" height="784" alt="image" src="https://github.com/user-attachments/assets/695e20b6-38af-403b-9f87-1a5ee9044150" />| <img width="1026" height="725" alt="image" src="https://github.com/user-attachments/assets/9b7a49ec-0378-47fb-a4ad-53f5fe33c470" />| <img width="1048" height="782" alt="image" src="https://github.com/user-attachments/assets/11503e16-4ded-4a33-9f30-d729938329a8" />|
 
 ## 프로젝트 후기
 
