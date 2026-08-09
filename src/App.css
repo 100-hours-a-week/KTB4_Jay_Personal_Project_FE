@@ -663,6 +663,15 @@ body:has(#signup-section)::before {
   box-shadow: 0 1px 2px rgba(25, 31, 40, 0.04);
 }
 
+.signup-section input:-webkit-autofill,
+.signup-section input:-webkit-autofill:hover,
+.signup-section input:-webkit-autofill:focus {
+  border-color: #d7e2f0;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  -webkit-text-fill-color: #191f28;
+}
+
 .signup-section input::placeholder {
   color: #9aa3af;
 }
@@ -2406,9 +2415,15 @@ body:has(#profile-view-section) .profile-avatar-button {
 .post-detail-section #show-report-button {
   position: absolute;
   right: 0;
+  min-width: 112px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
   background-color: #fff3f3;
   color: #e54848;
+  font-family: var(--sans-font);
   font-size: 18px;
+  font-weight: 800;
 }
 
 .post-detail-section #like-post-button {
@@ -2838,16 +2853,49 @@ body:has(#password-edit-section) .profile-avatar-button {
   box-shadow: 0 24px 70px rgba(49, 130, 246, 0.18);
 }
 
-.confirm-modal h2 {
+.report-modal {
+  width: 100%;
+  max-width: 460px;
+  padding: 40px 36px 34px;
+  border: 1px solid #d7e7ff;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: #191f28;
+  box-shadow: 0 24px 70px rgba(49, 130, 246, 0.18);
+}
+
+.confirm-modal h2,
+.report-modal h2 {
   margin: 0 0 24px;
   font-size: 24px;
   font-weight: 800;
+  text-align: center;
 }
 
-.confirm-modal p {
+.confirm-modal p,
+.report-modal p {
   margin: 0 0 28px;
   color: #6b7684;
   font-size: 16px;
+  text-align: center;
+}
+
+.report-modal input {
+  width: 100%;
+  height: 46px;
+  margin: 0 0 22px;
+  padding: 0 14px;
+  border: 1px solid #d7e2f0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #191f28;
+  font-size: 15px;
+  outline: none;
+}
+
+.report-modal input:focus {
+  border-color: #3182f6;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.14);
 }
 
 .confirm-modal-actions {

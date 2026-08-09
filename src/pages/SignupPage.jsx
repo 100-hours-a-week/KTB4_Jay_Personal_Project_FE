@@ -126,7 +126,7 @@ function SignupPage({ navigate, showMessage }) {
       </button>
       <h2>회원가입</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="signup-profile-field">
           <label htmlFor="signup-profile-image-input">프로필 이미지를 추가해볼까요?</label>
           <p id="signup-profile-image-error" className="field-error">
@@ -156,8 +156,10 @@ function SignupPage({ navigate, showMessage }) {
 
         <label htmlFor="signup-email-input">이메일*</label>
         <input
+          key="signup-email-empty"
           id="signup-email-input"
           type="email"
+          autoComplete="off"
           placeholder="이메일을 입력해주세요"
           value={email}
           onBlur={() => markTouched('email')}
@@ -174,8 +176,10 @@ function SignupPage({ navigate, showMessage }) {
 
         <label htmlFor="signup-password-input">비밀번호*</label>
         <input
+          key="signup-password-empty"
           id="signup-password-input"
           type="password"
+          autoComplete="new-password"
           placeholder="비밀번호를 입력해주세요"
           value={password}
           onBlur={() => markTouched('password')}
@@ -191,8 +195,10 @@ function SignupPage({ navigate, showMessage }) {
 
         <label htmlFor="signup-password-check-input">비밀번호 확인*</label>
         <input
+          key="signup-password-check-empty"
           id="signup-password-check-input"
           type="password"
+          autoComplete="new-password"
           placeholder="비밀번호를 한 번 더 입력해주세요"
           value={passwordCheck}
           onBlur={() => markTouched('passwordCheck')}
@@ -208,8 +214,10 @@ function SignupPage({ navigate, showMessage }) {
 
         <label htmlFor="signup-nickname-input">닉네임*</label>
         <input
+          key="signup-nickname-empty"
           id="signup-nickname-input"
           type="text"
+          autoComplete="off"
           placeholder="사용할 닉네임을 입력해주세요"
           value={nickname}
           onBlur={() => markTouched('nickname')}

@@ -9,6 +9,7 @@ import {
 } from '../api/postApi'
 import ChatBox from '../components/ChatBox'
 import CommentList from '../components/CommentList'
+import ConfirmModal from '../components/ConfirmModal'
 import MarkdownContent from '../components/MarkdownContent'
 import { useAuth } from '../context/AuthContext'
 import { formatDateOnly, getAuthorName } from '../utils/format'
@@ -25,7 +26,8 @@ function PostDetailPage({
   const [post, setPost] = useState(null)
   const [comments, setComments] = useState([])
   const [commentInput, setCommentInput] = useState('')
-  const [isReportOpen, setIsReportOpen] = useState(false)
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [reportReason, setReportReason] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -44,7 +46,7 @@ function PostDetailPage({
       const nextPost = result?.data ?? null
       setPost(nextPost)
       setComments(nextPost?.comments ?? [])
-      setIsReportOpen(false)
+      setIsReportModalOpen(false)
       setReportReason('')
     } catch (error) {
       if (showError) {
@@ -94,7 +96,7 @@ function PostDetailPage({
     }
   }
 
-  async function handleDeletePost() {
+  function openDeletePostModal() {
     if (!requireLogin()) {
       return
     }
@@ -104,22 +106,29 @@ function PostDetailPage({
       return
     }
 
-    if (!window.confirm('이 게시글을 삭제하시겠습니까?')) {
+    setIsDeleteModalOpen(true)
+  }
+
+  async function handleDeletePost() {
+    if (post === null || isSubmitting) {
       return
     }
 
+    setIsSubmitting(true)
+
     try {
       await deletePost(post.postId)
+      setIsDeleteModalOpen(false)
       setCurrentPostId(null)
       navigate('list', { page: currentPage })
     } catch (error) {
       showMessage(error.message, 'error')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
-  async function handleReport(event) {
-    event.preventDefault()
-
+  function openReportModal() {
     if (!requireLogin()) {
       return
     }
@@ -129,15 +138,27 @@ function PostDetailPage({
       return
     }
 
+    setIsReportModalOpen(true)
+  }
+
+  async function handleReport(event) {
+    event.preventDefault()
+
+    if (post === null || isSubmitting) {
+      return
+    }
+
     if (reportReason.trim() === '') {
       showMessage('신고 사유를 입력해주세요.', 'error')
       return
     }
 
+    setIsSubmitting(true)
+
     try {
       const result = await reportPost(post.postId, { reason: reportReason })
       setReportReason('')
-      setIsReportOpen(false)
+      setIsReportModalOpen(false)
 
       if (result?.data?.blinded === true) {
         navigate('list', { page: 0 })
@@ -147,6 +168,8 @@ function PostDetailPage({
       await loadDetail(false)
     } catch (error) {
       showMessage(error.message, 'error')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -276,7 +299,7 @@ function PostDetailPage({
             </button>
           )}
           {isOwner && (
-            <button id="delete-post-button" className="danger" type="button" onClick={handleDeletePost}>
+            <button id="delete-post-button" className="danger" type="button" onClick={openDeletePostModal}>
               삭제
             </button>
           )}
@@ -306,34 +329,12 @@ function PostDetailPage({
               id="show-report-button"
               className="danger"
               type="button"
-              onClick={() => {
-                if (requireLogin()) {
-                  setIsReportOpen((prev) => !prev)
-                }
-              }}
+              onClick={openReportModal}
             >
               신고하기
             </button>
           )}
         </div>
-
-        <form
-          id="report-box"
-          className={`report-box${isReportOpen ? '' : ' hidden'}`}
-          onSubmit={handleReport}
-        >
-          <h3>신고하기</h3>
-          <input
-            id="report-reason-input"
-            type="text"
-            placeholder="신고 사유를 입력해주세요"
-            value={reportReason}
-            onChange={(event) => setReportReason(event.target.value)}
-          />
-          <button id="report-post-button" className="danger" type="submit">
-            신고 접수
-          </button>
-        </form>
 
         <div className="comment-box">
           <h3>라이브 리뷰</h3>
@@ -358,6 +359,51 @@ function PostDetailPage({
           </form>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        modalId="delete-post-modal"
+        title="게시글을 삭제할까요?"
+        message="삭제한 게시글은 다시 복구할 수 없습니다."
+        confirmText="삭제하기"
+        isSubmitting={isSubmitting}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeletePost}
+      />
+      {isReportModalOpen && (
+        <div id="report-modal" className="modal-overlay">
+          <form className="report-modal" onSubmit={handleReport}>
+            <h2>게시글 신고하기</h2>
+            <p>신고 사유를 입력해주세요.</p>
+            <input
+              id="report-reason-input"
+              type="text"
+              placeholder="예: 부적절한 내용, 스팸 등"
+              value={reportReason}
+              onChange={(event) => setReportReason(event.target.value)}
+            />
+            <div className="confirm-modal-actions">
+              <button
+                type="button"
+                className="confirm-cancel-button"
+                onClick={() => {
+                  setIsReportModalOpen(false)
+                  setReportReason('')
+                }}
+              >
+                취소
+              </button>
+              <button
+                id="report-post-button"
+                className="confirm-submit-button"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                신고 접수
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </section>
   )
 }

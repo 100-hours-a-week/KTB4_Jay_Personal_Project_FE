@@ -218,6 +218,7 @@ src
 - 최신글 목록
 - 인기글 목록
 - DAILY / WEEKLY 인기글 전환
+- 인기글 초기 조회 시 백엔드가 해당 기간 랭킹을 즉시 생성하는 fallback 흐름 사용
 - 페이지네이션
 - thumbnailUrl 기반 카드 이미지 표시
 - thumbnailUrl이 없으면 본문 Markdown 첫 이미지 fallback
@@ -410,6 +411,7 @@ Vanilla JS와 초기 React 구조에서는 각 페이지에서 직접 fetch를 �
 - 최신글은 `/posts`, 인기글은 `/posts/rank`를 호출하도록 분리했습니다.
 - 인기글에서는 `period=DAILY`, `period=WEEKLY`를 토글 상태로 관리했습니다.
 - 페이지 변경 시 현재 탭과 period를 유지하도록 했습니다.
+- 백엔드는 해당 period의 `post_rankings`가 비어 있으면 `/posts/rank` 조회 시 1회 즉시 집계하도록 맞췄습니다.
 
 배운 점:
 
@@ -520,6 +522,7 @@ Vanilla JS와 초기 React 구조에서는 각 페이지에서 직접 fetch를 �
 | --- | --- | --- | --- |
 | 좋아요 UI 갱신 | 좋아요/취소 후 전체 목록 재요청 | 응답의 `likeCount`로 해당 카드 상태만 갱신 | Network 탭에서 목록 API 재호출 여부 확인 |
 | 인기글 탭 전환 | 최신글과 인기글 API 기준이 섞임 | `/posts`, `/posts/rank`, `period` 상태 분리 | 탭/페이지 전환 시 요청 URL 확인 |
+| 인기글 초기 표시 | 배치 전 랭킹 테이블이 비면 빈 목록 표시 | `/posts/rank` 첫 조회 시 백엔드가 해당 period를 1회 집계 | Network 탭과 목록 카드 확인 |
 | 이미지 작성 UX | 이미지 URL/Markdown 직접 입력 필요 | 파일 선택과 Ctrl+V 붙여넣기로 `/images` 업로드 후 본문 삽입 | Network 탭에서 `/images` 요청 확인 |
 | 목록 카드 이미지 | content 안 이미지를 파싱해야 함 | `thumbnailUrl` 우선 표시, 없으면 본문 첫 이미지 fallback | 목록 응답 필드와 카드 렌더링 확인 |
 | 배포 과정 | EC2 수동 접속, 빌드, 복사, 재시작 | GitHub Actions와 Docker 이미지 기반 배포로 반복 작업 축소 | Actions 로그, EC2 `docker compose ps` |
