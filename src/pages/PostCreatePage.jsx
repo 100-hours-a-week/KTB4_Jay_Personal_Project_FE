@@ -1,10 +1,22 @@
 import { useState } from 'react'
+import { uploadImage } from '../api/imageApi'
 import { createPost, getDraft, saveDraft } from '../api/postApi'
+import MarkdownEditor from '../components/MarkdownEditor'
+import { normalizeMarkdownContent } from '../utils/markdown'
 import { validatePostForm } from '../utils/validation'
+
+function getPostImageBody(thumbnailUrl) {
+  return {
+    thumbnailUrl,
+    imageUrl: thumbnailUrl,
+  }
+}
 
 function PostCreatePage({ navigate, showMessage, requireLogin }) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [thumbnailUrl, setThumbnailUrl] = useState('')
+  const [isUploadingThumbnail, setIsUploadingThumbnail] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function handleCreate(event) {
@@ -14,7 +26,8 @@ function PostCreatePage({ navigate, showMessage, requireLogin }) {
       return
     }
 
-    const errorMessage = validatePostForm({ title, content })
+    const normalizedContent = normalizeMarkdownContent(content)
+    const errorMessage = validatePostForm({ title, content: normalizedContent })
 
     if (errorMessage) {
       showMessage(errorMessage, 'error')
@@ -24,10 +37,16 @@ function PostCreatePage({ navigate, showMessage, requireLogin }) {
     setIsSubmitting(true)
 
     try {
-      await createPost({ title, content })
+      await createPost({
+        title,
+        content: normalizedContent,
+        ...getPostImageBody(thumbnailUrl),
+      })
       setTitle('')
       setContent('')
-      navigate('list', { page: 0 })
+      setThumbnailUrl('')
+      showMessage('리뷰 요청 글을 등록했습니다.', 'success')
+      navigate('list', { page: 0, keepMessage: true })
     } catch (error) {
       showMessage(error.message, 'error')
     } finally {
@@ -46,7 +65,7 @@ function PostCreatePage({ navigate, showMessage, requireLogin }) {
     }
 
     try {
-      await saveDraft({ title, content })
+      await saveDraft({ title, content, ...getPostImageBody(thumbnailUrl) })
       showMessage('임시저장했습니다.', 'success')
     } catch (error) {
       showMessage(error.message, 'error')
@@ -69,16 +88,53 @@ function PostCreatePage({ navigate, showMessage, requireLogin }) {
 
       setTitle(draft.title ?? '')
       setContent(draft.content ?? '')
+      setThumbnailUrl(
+        draft.thumbnailUrl ??
+        draft.thumbnailImageUrl ??
+        draft.imageUrl ??
+        draft.representativeImageUrl ??
+        draft.mainImageUrl ??
+        draft.coverImage ??
+        draft.coverImageUrl ??
+        draft.postImage ??
+        '',
+      )
       showMessage('임시글을 불러왔습니다.', 'success')
     } catch (error) {
       showMessage(error.message, 'error')
     }
   }
 
+  async function handleThumbnailChange(event) {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+
+    if (!file) {
+      return
+    }
+
+    setIsUploadingThumbnail(true)
+
+    try {
+      const result = await uploadImage(file)
+      const imageUrl = result?.data?.imageUrl
+
+      if (!imageUrl) {
+        throw new Error('대표 이미지 URL 응답을 확인하지 못했습니다.')
+      }
+
+      setThumbnailUrl(imageUrl)
+    } catch (error) {
+      window.alert(error.message)
+    } finally {
+      setIsUploadingThumbnail(false)
+    }
+  }
+
   return (
     <section id="post-create-section" className="section">
       <form onSubmit={handleCreate}>
-        <h2>코드 올리기</h2>
+        <h2>무엇이든 적어보세요!</h2>
 
         <label htmlFor="create-title-input">제목</label>
         <input
@@ -89,13 +145,36 @@ function PostCreatePage({ navigate, showMessage, requireLogin }) {
           onChange={(event) => setTitle(event.target.value)}
         />
 
+        <label htmlFor="create-thumbnail-input">대표 이미지</label>
+        <div className="post-thumbnail-field">
+          <div className="post-thumbnail-preview">
+            {thumbnailUrl ? <img src={thumbnailUrl} alt="" /> : <span>bamboo</span>}
+          </div>
+          <div className="post-thumbnail-actions">
+            <label className="post-thumbnail-upload-button" htmlFor="create-thumbnail-input">
+              {isUploadingThumbnail ? '업로드 중' : '이미지 선택'}
+            </label>
+            {thumbnailUrl && (
+              <button type="button" onClick={() => setThumbnailUrl('')}>
+                제거
+              </button>
+            )}
+          </div>
+          <input
+            id="create-thumbnail-input"
+            type="file"
+            accept="image/*"
+            disabled={isUploadingThumbnail}
+            onChange={handleThumbnailChange}
+          />
+        </div>
+
         <label htmlFor="create-content-input">내용</label>
-        <textarea
+        <MarkdownEditor
           id="create-content-input"
-          placeholder="나누고 싶은 이야기를 적어주세요"
           value={content}
-          onChange={(event) => setContent(event.target.value)}
-        ></textarea>
+          onChange={setContent}
+        />
 
         <div className="button-row">
           <button id="create-post-button" type="submit" disabled={isSubmitting}>

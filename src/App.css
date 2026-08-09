@@ -949,9 +949,9 @@ body:has(#signup-section)::before {
 
 body:has(#post-list-section) {
   background:
-    radial-gradient(circle at 78% 14%, rgba(49, 130, 246, 0.1), transparent 28%),
-    radial-gradient(circle at 16% 70%, rgba(139, 184, 255, 0.09), transparent 24%),
-    linear-gradient(180deg, #ffffff 0%, #f8fbff 62%, #eef6ff 100%);
+    radial-gradient(circle at 84% 10%, rgba(49, 130, 246, 0.16), transparent 28%),
+    radial-gradient(circle at 18% 72%, rgba(49, 130, 246, 0.1), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f7fbff 56%, #eff6ff 100%);
   color: #191f28;
 }
 
@@ -1119,9 +1119,10 @@ body:has(#post-list-section) .profile-avatar-button {
   aspect-ratio: 16 / 9;
   margin: 0 0 18px;
   overflow: hidden;
-  border-radius: 8px;
-  background-color: #eef6ff;
-  box-shadow: 0 12px 28px rgba(49, 130, 246, 0.12);
+  border: 1px solid #d9e9ff;
+  border-radius: 14px;
+  background-color: #f4f9ff;
+  box-shadow: 0 18px 42px rgba(49, 130, 246, 0.12);
 }
 
 #post-list-section .post-card-image img,
@@ -1132,7 +1133,8 @@ body:has(#post-list-section) .profile-avatar-button {
 
 #post-list-section .post-card-image img {
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #f4f9ff;
 }
 
 #post-list-section .post-card-image-placeholder {
@@ -1140,14 +1142,16 @@ body:has(#post-list-section) .profile-avatar-button {
   align-items: center;
   justify-content: center;
   background:
-    linear-gradient(135deg, rgba(109, 159, 230, 0.2), rgba(211, 228, 250, 0.58)),
-    #eef5ff;
+    radial-gradient(circle at 30% 24%, rgba(49, 130, 246, 0.18), transparent 34%),
+    linear-gradient(135deg, #f9fcff 0%, #eaf4ff 100%);
 }
 
 #post-list-section .post-card-image-placeholder span {
-  color: #4f8fe8;
-  font-size: 54px;
+  color: #3182f6;
+  font-family: var(--sans-font);
+  font-size: 34px;
   font-weight: 800;
+  letter-spacing: 0;
 }
 
 #post-list-section .post-card-top {
@@ -1302,6 +1306,237 @@ body:has(#post-list-section) .profile-avatar-button {
   resize: vertical;
 }
 
+.markdown-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(215, 226, 240, 0.8);
+  background-color: #ffffff;
+}
+
+.markdown-file-input {
+  display: none;
+}
+
+.markdown-toolbar-button {
+  min-width: 42px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-family: var(--mono-font);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.post-thumbnail-field {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  gap: 14px;
+  align-items: center;
+  margin: 8px 0 18px;
+}
+
+.post-thumbnail-preview {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #d7e7ff;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 28% 24%, rgba(49, 130, 246, 0.16), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+  color: #3182f6;
+  font-size: 24px;
+  font-weight: 800;
+  box-shadow: 0 14px 34px rgba(49, 130, 246, 0.1);
+}
+
+.post-thumbnail-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #f4f9ff;
+}
+
+.post-thumbnail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#post-create-section .post-thumbnail-upload-button,
+#post-edit-section .post-thumbnail-upload-button,
+.post-thumbnail-actions button {
+  display: inline-flex;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid #d7e7ff;
+  border-radius: 10px;
+  background-color: #eef6ff;
+  color: #3182f6;
+  font-family: var(--sans-font);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.post-thumbnail-actions button {
+  background-color: #ffffff;
+}
+
+.post-thumbnail-field input[type="file"] {
+  display: none;
+}
+
+.markdown-rich-editor {
+  width: 100%;
+  min-height: 420px;
+  margin: 8px 0 14px;
+  padding: 20px 22px;
+  overflow-y: auto;
+  border: 1px solid #d7e2f0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #191f28;
+  font-family: var(--sans-font);
+  font-size: 16px;
+  line-height: 1.7;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(25, 31, 40, 0.04);
+}
+
+.markdown-rich-editor:focus {
+  border-color: #3182f6;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.14);
+}
+
+.markdown-rich-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #9aa3af;
+}
+
+.markdown-rich-editor p {
+  margin: 0 0 16px;
+}
+
+.markdown-rich-editor img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 14px 0;
+  border-radius: 8px;
+}
+
+.markdown-rich-editor blockquote {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--terminal-green);
+  background-color: rgba(0, 255, 102, 0.07);
+  color: #6b7684;
+}
+
+.markdown-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background-color: rgba(8, 13, 20, 0.64);
+}
+
+.markdown-modal {
+  width: min(100%, 520px);
+  padding: 22px;
+  border: 1px solid var(--terminal-border);
+  border-radius: 12px;
+  background-color: var(--terminal-panel);
+  box-shadow: var(--terminal-shadow);
+}
+
+.markdown-modal h3 {
+  margin: 0 0 16px;
+  color: var(--terminal-text);
+  font-size: 20px;
+}
+
+.markdown-modal label {
+  display: block;
+  margin: 14px 0 8px;
+  color: var(--terminal-muted);
+  font-family: var(--mono-font);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.markdown-modal select,
+.markdown-modal textarea {
+  width: 100%;
+  border: 1px solid var(--terminal-border);
+  border-radius: 8px;
+  background-color: #0b111a;
+  color: var(--terminal-text);
+}
+
+.markdown-modal select {
+  height: 38px;
+  padding: 0 10px;
+}
+
+.markdown-modal textarea {
+  min-height: 220px;
+  padding: 12px;
+  resize: vertical;
+  font-family: var(--mono-font);
+  font-size: 13px;
+}
+
+.markdown-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.markdown-modal-actions button {
+  min-width: 70px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.global-message {
+  width: min(100%, 760px);
+  margin: 0 auto 18px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.global-message.success {
+  border: 1px solid #9be7bd;
+  background-color: #ecfff4;
+  color: #16794c;
+}
+
+.global-message.error {
+  border: 1px solid #ffc9c9;
+  background-color: #fff5f5;
+  color: #c92a2a;
+}
+
 #post-create-section .button-row,
 #post-edit-section .button-row {
   gap: 12px;
@@ -1367,6 +1602,77 @@ body:has(#post-list-section) .profile-avatar-button {
   font-size: 16px;
   line-height: 1.7;
   white-space: pre-wrap;
+}
+
+.markdown-content {
+  white-space: normal;
+}
+
+.markdown-content p {
+  margin: 0 0 16px;
+  white-space: pre-wrap;
+}
+
+.markdown-content p:last-child,
+.markdown-content blockquote:last-child,
+.markdown-code-card:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content a {
+  color: var(--terminal-blue);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.markdown-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 14px 0;
+  border-radius: 8px;
+}
+
+.markdown-content blockquote {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--terminal-green);
+  background-color: rgba(0, 255, 102, 0.07);
+  color: var(--terminal-muted);
+  white-space: pre-wrap;
+}
+
+.markdown-code-card {
+  overflow-x: auto;
+  margin: 0 0 16px;
+  border: 1px solid var(--terminal-border);
+  border-radius: 10px;
+  background-color: #f7f7f5;
+  color: var(--terminal-text);
+}
+
+.markdown-code-language {
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(25, 31, 40, 0.08);
+  color: #6b7684;
+  font-family: var(--mono-font);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.markdown-code-block {
+  margin: 0;
+  padding: 16px;
+  color: #24292f;
+  font-family: var(--mono-font);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.markdown-code-block code {
+  font-family: inherit;
 }
 
 .count-row {

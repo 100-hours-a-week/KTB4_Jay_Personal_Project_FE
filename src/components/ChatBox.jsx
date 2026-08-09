@@ -1,20 +1,10 @@
 import { Client } from '@stomp/stompjs'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { getChatMessages } from '../api/chatApi'
-import { API_BASE_URL, getAuthTokens } from '../api/client'
+import { getApiWebSocketUrl, getAuthTokens } from '../api/client'
 import { useAuth } from '../context/AuthContext'
 import ChatInput from './ChatInput'
 import ChatMessageList from './ChatMessageList'
-
-function getChatWebSocketUrl() {
-  const baseUrl = API_BASE_URL?.startsWith('http')
-    ? API_BASE_URL
-    : window.location.origin
-
-  const url = new URL('/ws', baseUrl)
-  url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:'
-  return url.toString()
-}
 
 function extractMessageList(result) {
   const data = result?.data ?? result
@@ -162,7 +152,7 @@ function ChatBox({ postId }) {
     setStatusAfterEffect(setConnectionStatus, 'connecting')
 
     const client = new Client({
-      brokerURL: getChatWebSocketUrl(),
+      brokerURL: getApiWebSocketUrl(),
       connectHeaders: {
         Authorization: `Bearer ${accessToken}`,
       },

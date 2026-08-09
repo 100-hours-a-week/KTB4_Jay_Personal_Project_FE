@@ -9,6 +9,7 @@ import {
 } from '../api/postApi'
 import ChatBox from '../components/ChatBox'
 import CommentList from '../components/CommentList'
+import MarkdownContent from '../components/MarkdownContent'
 import { useAuth } from '../context/AuthContext'
 import { formatDateOnly, getAuthorName } from '../utils/format'
 
@@ -239,7 +240,7 @@ function PostDetailPage({
         </div>
 
         <div id="detail-content" className="detail-content">
-          {post.blinded ? '신고로 숨김 처리된 게시글입니다.' : (post.content ?? '')}
+          {post.blinded ? '신고로 숨김 처리된 게시글입니다.' : <MarkdownContent content={post.content} />}
         </div>
 
         <div className="count-row">

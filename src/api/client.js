@@ -2,6 +2,15 @@ import { MESSAGE_MAP } from '../constants/messageMap'
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+export function getApiWebSocketUrl(path = '/ws') {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  const baseUrl = API_BASE_URL?.startsWith('http')
+    ? API_BASE_URL
+    : window.location.origin
+
+  return `${baseUrl.replace(/\/$/, '').replace(/^http/, 'ws')}${normalizedPath}`
+}
+
 export class ApiError extends Error {
   constructor(code, message) {
     super(message)

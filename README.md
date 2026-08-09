@@ -54,10 +54,16 @@
 - 게시글 목록 조회
 - 최신글 / 인기글 탭 전환
 - DAILY / WEEKLY 인기글 period 전환
+- 게시글 카드 대표 이미지 표시
 - 게시글 상세 조회
 - 게시글 작성
 - 게시글 수정
 - 게시글 삭제
+- 대표 이미지 선택/수정
+- Markdown 기반 본문 작성
+- 코드블록 삽입
+- 본문 이미지 파일 선택 업로드
+- 스크린샷 Ctrl+V 붙여넣기 업로드
 - 페이지네이션
 - 블라인드 게시글 표시 처리
 - 탈퇴 작성자 표시 처리
@@ -138,6 +144,7 @@ src
 │   ├── chatApi.js
 │   ├── client.js
 │   ├── commentApi.js
+│   ├── imageApi.js
 │   └── postApi.js
 ├── assets
 │   ├── hero.png
@@ -153,6 +160,8 @@ src
 │   ├── ConfirmModal.jsx
 │   ├── GlobalMessage.jsx
 │   ├── Header.jsx
+│   ├── MarkdownContent.jsx
+│   ├── MarkdownEditor.jsx
 │   ├── Pagination.jsx
 │   ├── PostCard.jsx
 │   └── ProfileMenu.jsx
@@ -176,6 +185,7 @@ src
 ├── stompTest.js
 └── utils
     ├── format.js
+    ├── markdown.js
     ├── profileImage.js
     └── validation.js
 ```
@@ -211,6 +221,8 @@ src
 - 인기글 목록
 - DAILY / WEEKLY 인기글 전환
 - 페이지네이션
+- thumbnailUrl 기반 카드 이미지 표시
+- thumbnailUrl이 없으면 본문 Markdown 첫 이미지 fallback
 - 게시글 카드 클릭 시 상세 화면 이동
 ```
 
@@ -218,6 +230,13 @@ src
 
 ```text
 - 제목/본문 입력
+- 대표 이미지 선택
+- 대표 이미지 미리보기
+- 대표 이미지 제거
+- contenteditable 기반 Markdown 에디터
+- 코드블록 삽입 모달
+- 본문 이미지 선택 업로드
+- 스크린샷 이미지 붙여넣기 업로드
 - 게시글 작성
 - 게시글 수정
 - 임시저장
@@ -269,9 +288,14 @@ api/postApi.js
   - 인기글 목록
   - 게시글 상세
   - 게시글 작성/수정/삭제
+  - 대표 이미지 URL을 thumbnailUrl, imageUrl로 함께 전송
   - 좋아요/좋아요 취소
   - 신고
   - 임시저장
+
+api/imageApi.js
+  - POST /images multipart/form-data 이미지 업로드
+  - 업로드 응답의 imageUrl, markdown 사용
 
 api/commentApi.js
   - 댓글 작성
@@ -471,6 +495,25 @@ Vanilla JS와 초기 React 구조에서는 각 페이지에서 직접 fetch를 �
 - CI/CD는 단순히 편의 기능이 아니라 반복 배포 과정의 실수를 줄이는 장치입니다.
 - 직접 배포와 자동화 배포를 모두 경험하면서 Docker 이미지 기반 배포의 장점을 이해했습니다.
 
+### 13. 코드리뷰용 게시글에서 코드와 이미지를 자연스럽게 작성하기 어려운 문제
+
+서비스 컨셉이 코드를 올리고 리뷰를 받는 커뮤니티인데, 일반 textarea만 사용하면 코드블록과 이미지를 모두 Markdown 문자열로 직접 입력해야 했습니다. 사용자는 스크린샷을 붙여넣거나 코드 영역을 카드처럼 보고 싶어 하지만, textarea 내부에서는 이미지와 코드블록을 실제 UI처럼 렌더링할 수 없습니다.
+
+해결:
+
+- `MarkdownEditor`를 만들어 `contenteditable` 기반 에디터로 전환했습니다.
+- 코드 삽입 버튼을 누르면 언어를 선택하고 코드블록 카드 형태로 본문에 넣을 수 있게 했습니다.
+- 이미지 버튼으로 파일을 선택하면 `POST /images` 업로드 후 본문에 실제 이미지로 삽입했습니다.
+- 스크린샷을 복사한 뒤 에디터에서 Ctrl+V/Cmd+V를 누르면 클립보드 이미지 파일을 감지해 같은 업로드 API로 전송했습니다.
+- 게시글 목록 카드용 이미지는 본문 이미지와 별도인 `thumbnailUrl` 상태로 관리했습니다.
+- 목록 카드에서는 `thumbnailUrl`을 우선 사용하고, 없으면 본문 Markdown의 첫 번째 이미지를 fallback으로 사용했습니다.
+
+배운 점:
+
+- 코드리뷰 서비스에서는 본문 저장 형식과 작성 UX를 분리해서 생각해야 합니다.
+- 본문 이미지는 Markdown content에 들어가고, 목록 대표 이미지는 별도 필드로 두는 편이 화면 요구사항에 맞습니다.
+- textarea로는 Notion 같은 편집 경험을 만들기 어렵기 때문에, rich editor 구조나 전문 에디터 라이브러리를 검토할 필요가 있습니다.
+
 ## 성능 및 개선 확인
 
 프론트엔드는 백엔드 랭킹 API처럼 ms 단위로 기록한 성능 수치가 많지는 않았습니다. 대신 회고 과정에서 불필요한 API 호출, 전체 리렌더링, 수동 배포 시간을 줄이는 방향으로 개선했습니다.
@@ -479,6 +522,8 @@ Vanilla JS와 초기 React 구조에서는 각 페이지에서 직접 fetch를 �
 | --- | --- | --- | --- |
 | 좋아요 UI 갱신 | 좋아요/취소 후 전체 목록 재요청 | 응답의 `likeCount`로 해당 카드 상태만 갱신 | Network 탭에서 목록 API 재호출 여부 확인 |
 | 인기글 탭 전환 | 최신글과 인기글 API 기준이 섞임 | `/posts`, `/posts/rank`, `period` 상태 분리 | 탭/페이지 전환 시 요청 URL 확인 |
+| 이미지 작성 UX | 이미지 URL/Markdown 직접 입력 필요 | 파일 선택과 Ctrl+V 붙여넣기로 `/images` 업로드 후 본문 삽입 | Network 탭에서 `/images` 요청 확인 |
+| 목록 카드 이미지 | content 안 이미지를 파싱해야 함 | `thumbnailUrl` 우선 표시, 없으면 본문 첫 이미지 fallback | 목록 응답 필드와 카드 렌더링 확인 |
 | 배포 과정 | EC2 수동 접속, 빌드, 복사, 재시작 | GitHub Actions와 Docker 이미지 기반 배포로 반복 작업 축소 | Actions 로그, EC2 `docker compose ps` |
 | 빌드 산출물 | 로컬 `dist` 복사 방식 | Docker 멀티스테이지 빌드로 운영 이미지 내부에서 빌드 | `docker build`, Nginx 컨테이너 정적 파일 확인 |
 
@@ -561,7 +606,8 @@ Vanilla JavaScript에서 React로 마이그레이션하면서는 컴포넌트 �
 - React Router 도입으로 현재 view state 기반 라우팅 개선
 - 입력 필드별 서버 검증 에러 표시 강화
 - 채팅 연결 끊김/재연결 UI 추가
-- 이미지 업로드 UX 개선
+- 전문 에디터 라이브러리 도입 검토
+- 대표 이미지 드래그 앤 드롭 업로드 지원
 - API 응답 타입 문서화
 - 공통 form validation hook 분리
 - 접근성 개선과 모바일 화면 점검 강화

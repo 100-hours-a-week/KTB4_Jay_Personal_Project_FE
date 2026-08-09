@@ -2,7 +2,19 @@ import { formatDateOnly, getAuthorName } from '../utils/format'
 import { getProfileImageUrl } from '../utils/profileImage'
 
 function getPostImage(post) {
-  return post?.thumbnailUrl ?? post?.imageUrl ?? post?.coverImage ?? post?.postImage ?? ''
+  const contentImage = post?.content?.match(/!\[[^\]]*]\(([^)\s]+)\)/)?.[1] ?? ''
+
+  return (
+    post?.thumbnailUrl ??
+    post?.thumbnailImageUrl ??
+    post?.imageUrl ??
+    post?.representativeImageUrl ??
+    post?.mainImageUrl ??
+    post?.coverImage ??
+    post?.coverImageUrl ??
+    post?.postImage ??
+    contentImage
+  )
 }
 
 function getPostAuthorImage(post) {
@@ -36,7 +48,7 @@ function PostCard({ post, onClick }) {
           <img src={postImage} alt="" />
         ) : (
           <div className="post-card-image-placeholder" aria-hidden="true">
-            <span>{String(post.title ?? '글').slice(0, 1)}</span>
+            <span>bamboo</span>
           </div>
         )}
       </div>

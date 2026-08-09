@@ -1,7 +1,8 @@
 import { Client } from "@stomp/stompjs";
+import { getApiWebSocketUrl } from "./api/client";
 
 const client = new Client({
-  brokerURL: "ws://localhost:8080/ws",
+  brokerURL: getApiWebSocketUrl(),
 
   reconnectDelay: 0,
 
